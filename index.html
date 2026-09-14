@@ -22,6 +22,18 @@
     --gold-soft:#F0E4C8;
     --brick:#8B4030;
     --brick-soft:#F2E1DA;
+    --c3:#3D5A73;
+    --c3-soft:#DCE6EA;
+    --c4:#6B4A7A;
+    --c4-soft:#E8DFEA;
+    --c5:#54672E;
+    --c5-soft:#E3E8D3;
+    --c6:#B15E23;
+    --c6-soft:#F3E2D0;
+    --c7:#4A5568;
+    --c7-soft:#E2E5EA;
+    --c8:#8A3F63;
+    --c8-soft:#F0DEE7;
     --shadow: 0 1px 2px rgba(36,35,29,.06), 0 8px 24px -12px rgba(36,35,29,.18);
   }
   @media (prefers-color-scheme: dark){
@@ -40,6 +52,18 @@
       --gold-soft:#332A16;
       --brick:#E39C87;
       --brick-soft:#3A241E;
+      --c3:#8FB8D1;
+      --c3-soft:#1E2C36;
+      --c4:#C9A8D6;
+      --c4-soft:#2E2433;
+      --c5:#A9C17A;
+      --c5-soft:#28311A;
+      --c6:#E0A165;
+      --c6-soft:#3A2717;
+      --c7:#9AA6B8;
+      --c7-soft:#262A32;
+      --c8:#D693B0;
+      --c8-soft:#33212A;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
     }
   }
@@ -58,6 +82,18 @@
     --gold-soft:#332A16;
     --brick:#E39C87;
     --brick-soft:#3A241E;
+    --c3:#8FB8D1;
+    --c3-soft:#1E2C36;
+    --c4:#C9A8D6;
+    --c4-soft:#2E2433;
+    --c5:#A9C17A;
+    --c5-soft:#28311A;
+    --c6:#E0A165;
+    --c6-soft:#3A2717;
+    --c7:#9AA6B8;
+    --c7-soft:#262A32;
+    --c8:#D693B0;
+    --c8-soft:#33212A;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
   }
 
@@ -229,8 +265,14 @@
     font-weight:600;
     letter-spacing:.01em;
   }
-  .pill.mx{ background:var(--brick-soft); color:var(--brick); }
-  .pill.bo{ background:var(--gold-soft); color:var(--gold); }
+  .pill.p0{ background:var(--brick-soft); color:var(--brick); }
+  .pill.p1{ background:var(--gold-soft); color:var(--gold); }
+  .pill.p2{ background:var(--c3-soft); color:var(--c3); }
+  .pill.p3{ background:var(--c4-soft); color:var(--c4); }
+  .pill.p4{ background:var(--c5-soft); color:var(--c5); }
+  .pill.p5{ background:var(--c6-soft); color:var(--c6); }
+  .pill.p6{ background:var(--c7-soft); color:var(--c7); }
+  .pill.p7{ background:var(--c8-soft); color:var(--c8); }
   .pill.cat{ background:var(--surface-2); color:var(--ink-dim); font-weight:500; }
 
   .day-title{
@@ -324,7 +366,7 @@
   <header class="page">
     <p class="eyebrow">1일 1스페인어 기사 · 누적 단어장</p>
     <h1>Bitácora Hispana</h1>
-    <p class="lede">2026년 8월 27일부터 오늘까지, 멕시코·볼리비아 시사 기사를 읽으며 뽑아온 어휘를 모두 모았다. 검색창에 스페인어나 한국어 뜻을 입력하면 바로 걸러진다.</p>
+    <p class="lede">2026년 8월 27일부터 오늘까지, 중남미 각국 시사 기사를 읽으며 뽑아온 어휘를 모두 모았다. 검색창에 스페인어나 한국어 뜻을 입력하면 바로 걸러진다.</p>
     <div class="stats" id="stats"></div>
     <p class="coverage-note">기록은 2026년 8월 27일 자 기사부터 보관되어 있다. 그 이전(7월 29일~8월 26일) 기사의 단어는 이 세션의 저장 기록에 없어 포함하지 못했다. 9월 14일 항목의 마지막 6개(constante, más allá de, brecha, decisivo, equidad, exigir)는 기사 원문이 아니라 그날 학습 자료의 요약·예시 문장에서 뽑은 표현이다.</p>
   </header>
@@ -334,11 +376,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input id="q" type="text" placeholder="단어나 뜻 검색 (예: arancel, 관세)" autocomplete="off">
     </div>
-    <div class="chip-row" id="countryChips">
-      <button class="chip" data-country="all" aria-pressed="true">전체</button>
-      <button class="chip" data-country="mx" aria-pressed="false">멕시코</button>
-      <button class="chip" data-country="bo" aria-pressed="false">볼리비아</button>
-    </div>
+    <div class="chip-row" id="countryChips"></div>
     <span class="count-note" id="countNote"></span>
   </div>
 
@@ -353,7 +391,7 @@
 
 <script>
 const DATA = [
-{date:"2026-08-27", country:"mx", cat:"외교·무역", title:"Sheinbaum descarta “rompimiento” entre EEUU y Canadá", source:"Infobae, 2026-08-24", words:[
+{date:"2026-08-27", country:"mx", countryName:"멕시코", cat:"외교·무역", title:"Sheinbaum descarta “rompimiento” entre EEUU y Canadá", source:"Infobae, 2026-08-24", words:[
   {es:"arancel", pos:"명사(남)", ko:"관세", ex:"El arancel a las importaciones generó tensión comercial entre los dos países."},
   {es:"rompimiento", pos:"명사(남)", ko:"단절, 결렬", ex:"Sheinbaum descartó cualquier rompimiento entre EE. UU. y Canadá."},
   {es:"desencuentro", pos:"명사(남)", ko:"불일치, 의견 충돌", ex:"Hubo un desencuentro entre los negociadores durante la última ronda."},
@@ -363,7 +401,7 @@ const DATA = [
   {es:"fracasar", pos:"동사(원형)", ko:"실패하다", ex:"Las negociaciones podrían fracasar si no hay concesiones mutuas."},
   {es:"entrar en vigor", pos:"동사구", ko:"발효되다", ex:"El nuevo arancel entrará en vigor el próximo mes."}
 ]},
-{date:"2026-08-28", country:"bo", cat:"경제·사회", title:"Empresarios del agro, COB, alcaldías y gremiales exigen abrogar decreto sobre el diésel", source:"Fides/ANF, 2026-08-27", words:[
+{date:"2026-08-28", country:"bo", countryName:"볼리비아", cat:"경제·사회", title:"Empresarios del agro, COB, alcaldías y gremiales exigen abrogar decreto sobre el diésel", source:"Fides/ANF, 2026-08-27", words:[
   {es:"abrogar", pos:"동사(원형)", ko:"(법령을) 폐지하다", ex:"Los gremiales exigieron abrogar el decreto sobre el diésel."},
   {es:"decreto supremo", pos:"명사구(남)", ko:"최고행정명령(대통령령)", ex:"El gobierno emitió un decreto supremo para regular el precio del combustible."},
   {es:"contrabando", pos:"명사(남)", ko:"밀수", ex:"El contrabando de diésel hacia países vecinos agravó la escasez."},
@@ -373,7 +411,7 @@ const DATA = [
   {es:"sufrir en carne propia", pos:"관용구", ko:"직접 겪다, 몸소 체험하다", ex:"Los agricultores sufren en carne propia la escasez de combustible."},
   {es:"lucrar", pos:"동사(원형)", ko:"부당하게 이득을 취하다", ex:"Denunciaron que algunos intermediarios lucran con la escasez de diésel."}
 ]},
-{date:"2026-08-29", country:"bo", cat:"문화·역사(종교전통)", title:"Fe y tradición chapaca: La imagen de San Roque visitó a la Virgen de Chaguaya", source:"Conferencia Episcopal Boliviana, 2026-08-27", words:[
+{date:"2026-08-29", country:"bo", countryName:"볼리비아", cat:"문화·역사(종교전통)", title:"Fe y tradición chapaca: La imagen de San Roque visitó a la Virgen de Chaguaya", source:"Conferencia Episcopal Boliviana, 2026-08-27", words:[
   {es:"feligresía", pos:"명사(여)", ko:"신자들, 교구민", ex:"La feligresía acompañó la imagen de San Roque durante todo el recorrido."},
   {es:"promesante", pos:"명사(남/여)", ko:"(종교적 서원을 이행하는) 순례자", ex:"Cientos de promesantes caminaron hasta el santuario para cumplir su promesa."},
   {es:"comitiva", pos:"명사(여)", ko:"수행단, 행렬", ex:"Una comitiva de fieles escoltó la imagen durante la procesión."},
@@ -383,7 +421,7 @@ const DATA = [
   {es:"fortalecer", pos:"동사(원형)", ko:"강화하다", ex:"La tradición ayuda a fortalecer la identidad religiosa de la comunidad."},
   {es:"enmarcarse en", pos:"동사구", ko:"~의 맥락 안에 있다", ex:"La visita se enmarca en las celebraciones patronales de la región."}
 ]},
-{date:"2026-08-30", country:"mx", cat:"정치·경제", title:"Claudia Sheinbaum sostiene que México “va mejor” en su segundo año de gobierno", source:"Infobae, 2026-08-28", words:[
+{date:"2026-08-30", country:"mx", countryName:"멕시코", cat:"정치·경제", title:"Claudia Sheinbaum sostiene que México “va mejor” en su segundo año de gobierno", source:"Infobae, 2026-08-28", words:[
   {es:"informe de gobierno", pos:"명사구(남)", ko:"국정보고(대통령 연례 보고)", ex:"Sheinbaum presentó su segundo informe de gobierno ante el Congreso."},
   {es:"arancel", pos:"명사(남)", ko:"관세", ex:"Los aranceles impuestos por EE. UU. afectaron las exportaciones mexicanas."},
   {es:"disminuir", pos:"동사(원형)", ko:"감소하다, 줄이다", ex:"El desempleo disminuyó respecto al año anterior, según el informe."},
@@ -393,7 +431,7 @@ const DATA = [
   {es:"enfrentar", pos:"동사(원형)", ko:"맞서다, 대처하다", ex:"México debe enfrentar la incertidumbre comercial con Estados Unidos."},
   {es:"fortalecer el mercado interno", pos:"동사구", ko:"내수 시장을 강화하다", ex:"Sheinbaum propuso fortalecer el mercado interno ante la presión arancelaria."}
 ]},
-{date:"2026-08-31", country:"mx", cat:"외교·안보(국경·이주)", title:"México confirma que drones derribados por EE.UU. eran usados para traficar migrantes", source:"Infobae/EFE, 2026-08-29", words:[
+{date:"2026-08-31", country:"mx", countryName:"멕시코", cat:"외교·안보(국경·이주)", title:"México confirma que drones derribados por EE.UU. eran usados para traficar migrantes", source:"Infobae/EFE, 2026-08-29", words:[
   {es:"derribar", pos:"동사(원형)", ko:"격추하다, 무너뜨리다", ex:"Estados Unidos derribó los drones utilizados para el tráfico de migrantes."},
   {es:"traficante", pos:"명사(남/여)", ko:"밀매업자", ex:"Los traficantes usaban drones para vigilar los cruces fronterizos."},
   {es:"vigilar", pos:"동사(원형)", ko:"감시하다", ex:"Las autoridades vigilan la frontera con tecnología no tripulada."},
@@ -403,7 +441,7 @@ const DATA = [
   {es:"unilateral", pos:"형용사", ko:"일방적인", ex:"México cuestionó el carácter unilateral de la acción estadounidense."},
   {es:"inhabilitar", pos:"동사(원형)", ko:"무력화하다, 기능을 정지시키다", ex:"El operativo buscó inhabilitar la red de tráfico de migrantes."}
 ]},
-{date:"2026-09-01", country:"bo", cat:"정치·안보(치안)", title:"Rodrigo Paz encarga a nuevos mandos policiales combatir el “narcoterrorismo” en Bolivia", source:"Infobae/EFE, 2026-08-31", words:[
+{date:"2026-09-01", country:"bo", countryName:"볼리비아", cat:"정치·안보(치안)", title:"Rodrigo Paz encarga a nuevos mandos policiales combatir el “narcoterrorismo” en Bolivia", source:"Infobae/EFE, 2026-08-31", words:[
   {es:"posesionar", pos:"동사(원형)", ko:"취임시키다 (볼리비아식 표현)", ex:"Rodrigo Paz posesionó a los nuevos mandos policiales."},
   {es:"encargar", pos:"동사(원형)", ko:"임무를 맡기다, 위임하다", ex:"El presidente encargó a la policía combatir el narcoterrorismo."},
   {es:"narcoterrorismo", pos:"명사(남)", ko:"마약테러리즘", ex:"El gobierno declaró prioridad nacional la lucha contra el narcoterrorismo."},
@@ -413,7 +451,7 @@ const DATA = [
   {es:"trata agravada de personas", pos:"명사구(여)", ko:"가중 인신매매", ex:"Los nuevos mandos investigarán casos de trata agravada de personas."},
   {es:"alzamiento armado", pos:"명사구(남)", ko:"무장봉기", ex:"Las autoridades descartaron cualquier riesgo de alzamiento armado."}
 ]},
-{date:"2026-09-02", country:"mx", cat:"경제·무역(외국인투자)", title:"Empresas huyen de México: la incertidumbre del T-MEC empuja la inversión extranjera hacia Asia", source:"Infobae, 2026-09-01", words:[
+{date:"2026-09-02", country:"mx", countryName:"멕시코", cat:"경제·무역(외국인투자)", title:"Empresas huyen de México: la incertidumbre del T-MEC empuja la inversión extranjera hacia Asia", source:"Infobae, 2026-09-01", words:[
   {es:"arancel", pos:"명사(남)", ko:"관세", ex:"La incertidumbre sobre los aranceles frenó nuevas inversiones."},
   {es:"renegociación", pos:"명사(여)", ko:"재협상", ex:"La renegociación del T-MEC generó incertidumbre entre los inversionistas."},
   {es:"relocalizarse", pos:"동사(원형)", ko:"(기업이) 이전하다, 재배치되다", ex:"Varias empresas decidieron relocalizarse hacia Asia."},
@@ -423,7 +461,7 @@ const DATA = [
   {es:"tajante", pos:"형용사", ko:"단호한, 명확한", ex:"El sector empresarial fue tajante al advertir sobre la fuga de inversión."},
   {es:"resiliente", pos:"형용사", ko:"회복력 있는", ex:"México sigue siendo un mercado resiliente pese a la incertidumbre."}
 ]},
-{date:"2026-09-03", country:"bo", cat:"경제·에너지(국영기업 개입)", title:"Bolivia ordena la intervención de YPFB para enfrentar la crisis de combustibles y sanear la petrolera estatal", source:"Infobae, 2026-09-03", words:[
+{date:"2026-09-03", country:"bo", countryName:"볼리비아", cat:"경제·에너지(국영기업 개입)", title:"Bolivia ordena la intervención de YPFB para enfrentar la crisis de combustibles y sanear la petrolera estatal", source:"Infobae, 2026-09-03", words:[
   {es:"disponer", pos:"동사(원형)", ko:"명하다, 지시하다", ex:"El gobierno dispuso la intervención de YPFB."},
   {es:"intervención", pos:"명사(여)", ko:"개입, 관리개입", ex:"La intervención busca sanear la petrolera estatal."},
   {es:"decreto supremo", pos:"명사구(남)", ko:"최고행정명령", ex:"Un nuevo decreto supremo autorizó la intervención de la empresa estatal."},
@@ -433,7 +471,7 @@ const DATA = [
   {es:"hidrocarburos", pos:"명사(남·복수)", ko:"탄화수소, 석유·가스 자원", ex:"Bolivia depende en gran medida de sus hidrocarburos."},
   {es:"dedicarse a (+ subj.)", pos:"동사구", ko:"~하는 데 전념하다", ex:"Se ordenó que la nueva gestión se dedique a resolver la crisis."}
 ]},
-{date:"2026-09-04", country:"bo", cat:"외교·안보(대칠레 관계 정상화)", title:"Bolivia y Chile coordinarán operativos y datos en tiempo real contra el crimen", source:"El Deber, 2026-09-02", words:[
+{date:"2026-09-04", country:"bo", countryName:"볼리비아", cat:"외교·안보(대칠레 관계 정상화)", title:"Bolivia y Chile coordinarán operativos y datos en tiempo real contra el crimen", source:"El Deber, 2026-09-02", words:[
   {es:"punto focal", pos:"명사구(남)", ko:"연락창구, 담당 부서", ex:"Ambos países designarán un punto focal para coordinar la cooperación."},
   {es:"mesa de trabajo", pos:"명사구(여)", ko:"실무협의체", ex:"Se instalará una mesa de trabajo binacional contra el crimen organizado."},
   {es:"trata y tráfico de personas", pos:"명사구(여)", ko:"인신매매 및 밀입국", ex:"La cooperación incluirá acciones contra la trata y tráfico de personas."},
@@ -443,7 +481,7 @@ const DATA = [
   {es:"empeñar la palabra", pos:"동사구", ko:"약속을 걸다, 다짐하다", ex:"Los cancilleres empeñaron su palabra para cumplir los compromisos."},
   {es:"trascender", pos:"동사(원형)", ko:"초월하다, 범위를 넘어서다", ex:"La cooperación busca trascender las diferencias políticas del pasado."}
 ]},
-{date:"2026-09-05", country:"mx", cat:"문화·전통(음식유산)", title:"Este fin de semana arranca el Festival Pulque, Gastronomía Típica y Mezcal", source:"Infobae México, 2026-09-05", words:[
+{date:"2026-09-05", country:"mx", countryName:"멕시코", cat:"문화·전통(음식유산)", title:"Este fin de semana arranca el Festival Pulque, Gastronomía Típica y Mezcal", source:"Infobae México, 2026-09-05", words:[
   {es:"maguey", pos:"명사(남)", ko:"용설란(풀케 원료 식물)", ex:"El maguey es la planta base para producir pulque."},
   {es:"aguamiel", pos:"명사(남)", ko:"용설란 수액", ex:"El aguamiel se extrae del maguey antes de fermentarse."},
   {es:"tlachiquero", pos:"명사(남)", ko:"풀케 채취 장인", ex:"El tlachiquero recolecta el aguamiel de manera artesanal."},
@@ -453,7 +491,7 @@ const DATA = [
   {es:"municipio", pos:"명사(남)", ko:"지방자치단체, 시(군)", ex:"El festival se celebró en varios municipios del centro del país."},
   {es:"trámite", pos:"명사(남)", ko:"행정 절차, 수속", ex:"El trámite para obtener la certificación puede tardar varios años."}
 ]},
-{date:"2026-09-06", country:"bo", cat:"외교·에너지(지역통합)", title:"Bolivia promoverá en su presidencia de Olacde diversificar e integrar sistemas energéticos", source:"EFE/Infobae, 2026-09-05", words:[
+{date:"2026-09-06", country:"bo", countryName:"볼리비아", cat:"외교·에너지(지역통합)", title:"Bolivia promoverá en su presidencia de Olacde diversificar e integrar sistemas energéticos", source:"EFE/Infobae, 2026-09-05", words:[
   {es:"asumir", pos:"동사(원형)", ko:"(직책 등을) 맡다", ex:"Bolivia asumió la presidencia pro tempore de la organización."},
   {es:"anticipar", pos:"동사(원형)", ko:"예고하다, 앞서 알리다", ex:"El canciller anticipó los ejes de la nueva presidencia."},
   {es:"diversificación energética", pos:"명사구(여)", ko:"에너지원 다변화", ex:"La diversificación energética será un eje central de la presidencia boliviana."},
@@ -463,7 +501,7 @@ const DATA = [
   {es:"interconexión", pos:"명사(여)", ko:"연계, 상호연결", ex:"La interconexión energética facilitaría el intercambio regional."},
   {es:"alianza público-privada", pos:"명사구(여)", ko:"민관협력", ex:"Se promoverán alianzas público-privadas para financiar los proyectos."}
 ]},
-{date:"2026-09-07", country:"mx", cat:"정치·입법(헌법개정)", title:"Monreal adelanta cuándo votará San Lázaro la reforma de Sheinbaum sobre la doble nacionalidad", source:"Infobae México, 2026-09-07", words:[
+{date:"2026-09-07", country:"mx", countryName:"멕시코", cat:"정치·입법(헌법개정)", title:"Monreal adelanta cuándo votará San Lázaro la reforma de Sheinbaum sobre la doble nacionalidad", source:"Infobae México, 2026-09-07", words:[
   {es:"iniciativa", pos:"명사(여)", ko:"(법안) 발의, 제안", ex:"La iniciativa de reforma constitucional fue enviada al Congreso."},
   {es:"doble nacionalidad", pos:"명사구(여)", ko:"이중국적", ex:"La reforma limitaría cargos públicos para personas con doble nacionalidad."},
   {es:"renunciar a", pos:"동사구", ko:"~을 포기하다", ex:"Los candidatos deberán renunciar a su otra nacionalidad."},
@@ -473,7 +511,7 @@ const DATA = [
   {es:"aspirar a", pos:"동사구", ko:"~을 열망하다, 지망하다", ex:"Quienes aspiren a un cargo de elección deberán cumplir el requisito."},
   {es:"gubernatura", pos:"명사(여)", ko:"주지사직", ex:"La reforma también afecta a quienes buscan una gubernatura."}
 ]},
-{date:"2026-09-08", country:"bo", cat:"정치·사회(마약정책·국제협력)", title:"El Gobierno de Bolivia lanzó una nueva política antidroga tras el alza de los cultivos de coca", source:"Infobae/EFE, 2026-09-08", words:[
+{date:"2026-09-08", country:"bo", countryName:"볼리비아", cat:"정치·사회(마약정책·국제협력)", title:"El Gobierno de Bolivia lanzó una nueva política antidroga tras el alza de los cultivos de coca", source:"Infobae/EFE, 2026-09-08", words:[
   {es:"lanzar", pos:"동사(원형)", ko:"(정책 등을) 출범시키다", ex:"El gobierno lanzó una nueva política antidroga."},
   {es:"excedentario", pos:"형용사", ko:"과잉의, 잉여의", ex:"Se busca reducir los cultivos de coca considerados excedentarios."},
   {es:"interdicción", pos:"명사(여)", ko:"단속, 저지", ex:"La nueva estrategia refuerza la interdicción del narcotráfico."},
@@ -483,7 +521,7 @@ const DATA = [
   {es:"escasez", pos:"명사(여)", ko:"부족, 결핍", ex:"La escasez de recursos dificulta el combate al narcotráfico."},
   {es:"mandatario", pos:"명사(남)", ko:"국가원수, 대통령", ex:"El mandatario boliviano presentó la estrategia junto a su gabinete."}
 ]},
-{date:"2026-09-09", country:"mx", cat:"경제·무역(대중국 반덤핑 조치)", title:"México golpea a China dos veces en 48 horas mientras negocia con EEUU la revisión del T-MEC", source:"Infobae México, 2026-09-09", words:[
+{date:"2026-09-09", country:"mx", countryName:"멕시코", cat:"경제·무역(대중국 반덤핑 조치)", title:"México golpea a China dos veces en 48 horas mientras negocia con EEUU la revisión del T-MEC", source:"Infobae México, 2026-09-09", words:[
   {es:"cuota compensatoria", pos:"명사구(여)", ko:"상계관세", ex:"México impuso una cuota compensatoria a productos chinos."},
   {es:"cuadruplicar", pos:"동사(원형)", ko:"4배로 늘리다", ex:"El arancel se cuadruplicó tras la investigación por dumping."},
   {es:"vigente", pos:"형용사", ko:"유효한, 현행의", ex:"La medida estará vigente durante los próximos cinco años."},
@@ -493,7 +531,7 @@ const DATA = [
   {es:"desechar", pos:"동사(원형)", ko:"기각하다, 버리다", ex:"México desechó los argumentos presentados por los exportadores chinos."},
   {es:"endurecer", pos:"동사(원형)", ko:"강화하다, 엄격하게 하다", ex:"El gobierno decidió endurecer las medidas comerciales contra China."}
 ]},
-{date:"2026-09-10", country:"mx", cat:"외교·안보(대미관계·선거정치)", title:"Claudia Sheinbaum responde a Marco Rubio: “No se debe usar a México” en campaña electoral de EEUU", source:"Infobae México, 2026-09-10", words:[
+{date:"2026-09-10", country:"mx", countryName:"멕시코", cat:"외교·안보(대미관계·선거정치)", title:"Claudia Sheinbaum responde a Marco Rubio: “No se debe usar a México” en campaña electoral de EEUU", source:"Infobae México, 2026-09-10", words:[
   {es:"mañanera", pos:"명사(여)", ko:"(멕시코 대통령) 아침 정례 기자회견", ex:"Sheinbaum respondió a Rubio durante su mañanera."},
   {es:"señalamiento", pos:"명사(남)", ko:"지적, 비난", ex:"Rechazó el señalamiento hecho por el senador estadounidense."},
   {es:"no ser ni de lejos suficiente", pos:"관용구", ko:"결코 충분하지 않다", ex:"Rubio afirmó que los esfuerzos de México no son ni de lejos suficientes."},
@@ -503,7 +541,7 @@ const DATA = [
   {es:"usar a alguien en su campaña", pos:"동사구", ko:"~을 선거운동에 이용하다", ex:"Pidió no usar a México en la campaña electoral de Estados Unidos."},
   {es:"tránsito", pos:"명사(남)", ko:"통과, 이동", ex:"Se discutió el tránsito de migrantes por territorio mexicano."}
 ]},
-{date:"2026-09-11", country:"bo", cat:"외교·정치(OEA 중재)", title:"OEA pide a todos los sectores en Bolivia “priorizar el diálogo” y abstenerse de bloqueos", source:"Infobae/EFE, 2026-09-11", words:[
+{date:"2026-09-11", country:"bo", countryName:"볼리비아", cat:"외교·정치(OEA 중재)", title:"OEA pide a todos los sectores en Bolivia “priorizar el diálogo” y abstenerse de bloqueos", source:"Infobae/EFE, 2026-09-11", words:[
   {es:"bloqueo", pos:"명사(남)", ko:"봉쇄, 도로차단", ex:"La OEA pidió abstenerse de nuevos bloqueos en las carreteras."},
   {es:"abstenerse de", pos:"동사구", ko:"~을 삼가다, 자제하다", ex:"Los sectores sociales deben abstenerse de medidas de presión."},
   {es:"hacer un llamado a", pos:"동사구", ko:"~에게 촉구하다", ex:"La OEA hizo un llamado a priorizar el diálogo entre las partes."},
@@ -513,7 +551,7 @@ const DATA = [
   {es:"desplegar", pos:"동사(원형)", ko:"파견하다, 전개하다", ex:"La OEA desplegó una misión de observación en Bolivia."},
   {es:"abordar", pos:"동사(원형)", ko:"다루다, 접근하다", ex:"El comunicado abordó las causas de la crisis social."}
 ]},
-{date:"2026-09-12", country:"mx", cat:"문화·관광(박물관 통계 비교)", title:"La Ciudad de México tiene más museos que París, pero menos que Londres: el dato que pocos turistas conocen", source:"Infobae México, 2026-09-11", words:[
+{date:"2026-09-12", country:"mx", countryName:"멕시코", cat:"문화·관광(박물관 통계 비교)", title:"La Ciudad de México tiene más museos que París, pero menos que Londres: el dato que pocos turistas conocen", source:"Infobae México, 2026-09-11", words:[
   {es:"recinto (museístico)", pos:"명사(남)", ko:"(박물관 등의) 시설, 부지", ex:"La ciudad cuenta con más de 170 recintos museísticos."},
   {es:"acreditación", pos:"명사(여)", ko:"인증, 공인", ex:"No todos los museos cuentan con acreditación oficial."},
   {es:"cifra", pos:"명사(여)", ko:"수치", ex:"La cifra sorprendió incluso a los especialistas en turismo cultural."},
@@ -523,7 +561,7 @@ const DATA = [
   {es:"extranjero", pos:"명사/형용사(남)", ko:"외국인, 외국의", ex:"Muchos extranjeros desconocen esta cifra sobre los museos de la capital."},
   {es:"contar con / recibir", pos:"동사구", ko:"~을 보유하다 / 방문객을 맞이하다", ex:"La ciudad recibe millones de visitantes en sus museos cada año."}
 ]},
-{date:"2026-09-13", country:"bo", cat:"문화·역사(수호성인 축제·무형유산)", title:"Sucre se viste de fiesta y devoción con la Gran Entrada en honor a la Virgen de Guadalupe", source:"Los Tiempos/ERBOL, 2026-09-12", words:[
+{date:"2026-09-13", country:"bo", countryName:"볼리비아", cat:"문화·역사(수호성인 축제·무형유산)", title:"Sucre se viste de fiesta y devoción con la Gran Entrada en honor a la Virgen de Guadalupe", source:"Los Tiempos/ERBOL, 2026-09-12", words:[
   {es:"regocijo", pos:"명사(남)", ko:"기쁨, 환희", ex:"La ciudad vivió un ambiente de regocijo durante la festividad."},
   {es:"patrona / patronal", pos:"명사(여) / 형용사", ko:"수호성인(의)", ex:"La Virgen de Guadalupe es la patrona de Sucre."},
   {es:"Entrada Folclórica", pos:"명사구(여)", ko:"민속 행렬(축제)", ex:"La Entrada Folclórica reunió a decenas de fraternidades."},
@@ -533,7 +571,7 @@ const DATA = [
   {es:"consolidar", pos:"동사(원형)", ko:"공고히 하다, 확립하다", ex:"El evento ayuda a consolidar la identidad chuquisaqueña."},
   {es:"patrimonio vivo", pos:"명사구(남)", ko:"살아있는 유산(무형유산)", ex:"La Entrada es considerada patrimonio vivo de la región."}
 ]},
-{date:"2026-09-14", country:"mx", cat:"사회·교육(PISA 2025·공교육)", title:"Sheinbaum responde a críticas sobre escuelas públicas: tienen mejor puntaje frente a privadas en prueba PISA 2025", source:"Infobae México, 2026-09-12", words:[
+{date:"2026-09-14", country:"mx", countryName:"멕시코", cat:"사회·교육(PISA 2025·공교육)", title:"Sheinbaum responde a críticas sobre escuelas públicas: tienen mejor puntaje frente a privadas en prueba PISA 2025", source:"Infobae México, 2026-09-12", words:[
   {es:"calificación", pos:"명사(여)", ko:"점수, 평가", ex:"Las escuelas públicas tuvieron mejor calificación que las privadas."},
   {es:"sindicalizado/a", pos:"형용사", ko:"노조에 가입한", ex:"Los maestros llevan décadas sindicalizados en México."},
   {es:"magisterio", pos:"명사(남)", ko:"교원단, 교직", ex:"El gobierno agradeció al magisterio nacional."},
@@ -556,29 +594,47 @@ const statsEl = document.getElementById('stats');
 const countNote = document.getElementById('countNote');
 const emptyState = document.getElementById('emptyState');
 const qInput = document.getElementById('q');
-const chips = document.querySelectorAll('#countryChips .chip');
+const countryChipsEl = document.getElementById('countryChips');
 
 let currentCountry = 'all';
 
 const totalWords = DATA.reduce((n,d)=>n+d.words.length,0);
-const mxDays = DATA.filter(d=>d.country==='mx').length;
-const boDays = DATA.filter(d=>d.country==='bo').length;
+
+// 국가는 데이터에 등장하는 순서대로 색 슬롯(p0~p7)을 배정한다. 새 국가가 나와도 코드 수정 없이 자동으로 처리된다.
+const PILL_CLASSES = ['p0','p1','p2','p3','p4','p5','p6','p7'];
+const countryOrder = [];
+const countryNames = {};
+DATA.forEach(d=>{
+  if(!(d.country in countryNames)){
+    countryNames[d.country] = d.countryName || d.country;
+    countryOrder.push(d.country);
+  }
+});
+function pillClassFor(code){
+  const idx = countryOrder.indexOf(code);
+  return PILL_CLASSES[idx % PILL_CLASSES.length] || 'p0';
+}
+
+const latestDate = DATA.length ? DATA[DATA.length - 1].date : '-';
 
 statsEl.innerHTML = `
   <div class="stat"><b>${DATA.length}</b><span>수록 일수</span></div>
   <div class="stat"><b>${totalWords}</b><span>총 단어·표현</span></div>
-  <div class="stat"><b>${mxDays}</b><span>멕시코 기사</span></div>
-  <div class="stat"><b>${boDays}</b><span>볼리비아 기사</span></div>
+  <div class="stat"><b>${countryOrder.length}</b><span>다루 국가</span></div>
+  <div class="stat"><b>${latestDate.slice(5)}</b><span>최근 갱신</span></div>
 `;
 
 document.getElementById('footerNote').textContent =
-  `전체 ${DATA.length}일치, ${totalWords}개 항목. 매일 "1일 1스페인어 기사" 학습 자료에서 자동으로 누적된다. 다른 기사에서 다시 등장한 단어는 각 기사 맥락별로 따로 싣는다.`;
+  `전체 ${DATA.length}일치, ${totalWords}개 항목, ${countryOrder.length}개국. 매일 "1일 1스페인어 기사" 학습 자료에서 자동으로 누적된다. 다른 기사에서 다시 등장한 단어는 각 기사 맥락별로 따로 싣는다.`;
+
+countryChipsEl.innerHTML = '<button class="chip" data-country="all" aria-pressed="true">전체</button>' +
+  countryOrder.map(code => `<button class="chip" data-country="${escAttr(code)}" aria-pressed="false">${esc(countryNames[code])}</button>`).join('');
 
 function renderDay(d){
   const el = document.createElement('section');
   el.className = 'day';
   el.dataset.country = d.country;
-  const countryLabel = d.country === 'mx' ? '멕시코' : '볼리비아';
+  const countryLabel = d.countryName || d.country;
   const rows = d.words.map(w => `
     <tr data-es="${escAttr(w.es)}" data-ko="${escAttr(w.ko)}" data-ex="${escAttr(w.ex)}">
       <td class="es">${esc(w.es)}</td>
@@ -589,7 +645,7 @@ function renderDay(d){
   el.innerHTML = `
     <div class="day-head">
       <span class="day-date">${d.date}</span>
-      <span class="pill ${d.country}">${countryLabel}</span>
+      <span class="pill ${pillClassFor(d.country)}">${esc(countryLabel)}</span>
       <span class="pill cat">${esc(d.cat)}</span>
     </div>
     <p class="day-title">${esc(d.title)}</p>
@@ -604,7 +660,7 @@ function renderDay(d){
   return el;
 }
 
-function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function escAttr(s){ return esc(s).replace(/"/g,'&quot;').toLowerCase(); }
 
 DATA.forEach(d => main.appendChild(renderDay(d)));
@@ -630,13 +686,13 @@ function applyFilters(){
 }
 
 qInput.addEventListener('input', applyFilters);
-chips.forEach(chip=>{
-  chip.addEventListener('click', ()=>{
-    chips.forEach(c=>c.setAttribute('aria-pressed','false'));
-    chip.setAttribute('aria-pressed','true');
-    currentCountry = chip.dataset.country;
-    applyFilters();
-  });
+countryChipsEl.addEventListener('click', (e)=>{
+  const chip = e.target.closest('.chip');
+  if(!chip) return;
+  countryChipsEl.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+  chip.setAttribute('aria-pressed','true');
+  currentCountry = chip.dataset.country;
+  applyFilters();
 });
 
 applyFilters();
