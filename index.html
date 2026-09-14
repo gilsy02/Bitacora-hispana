@@ -347,7 +347,7 @@
   <div class="empty-state" id="emptyState">검색 결과가 없다. 다른 단어로 다시 찾아보길.</div>
 
   <footer>
-    <div class="wrap">전체 19일치, 158개 항목. 매일 "1일 1스페인어 기사" 학습 자료에서 자동으로 누적된다. arancel · decreto supremo처럼 다른 기사에서 다시 등장한 단어는 각 기사 맥락별로 따로 실었다.</div>
+    <div class="wrap" id="footerNote"></div>
   </footer>
 </div>
 
@@ -570,6 +570,9 @@ statsEl.innerHTML = `
   <div class="stat"><b>${mxDays}</b><span>멕시코 기사</span></div>
   <div class="stat"><b>${boDays}</b><span>볼리비아 기사</span></div>
 `;
+
+document.getElementById('footerNote').textContent =
+  `전체 ${DATA.length}일치, ${totalWords}개 항목. 매일 "1일 1스페인어 기사" 학습 자료에서 자동으로 누적된다. 다른 기사에서 다시 등장한 단어는 각 기사 맥락별로 따로 싣는다.`;
 
 function renderDay(d){
   const el = document.createElement('section');
