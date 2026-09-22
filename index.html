@@ -1,1 +1,782 @@
-/tmp/claude-0/-home-claude/3d14a653-94af-5c7e-b829-7e410a9efbb3/scratchpad/index_new.html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitácora Hispana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#F4F3EC;
+    --surface:#FFFFFF;
+    --surface-2:#ECEAE0;
+    --ink:#24231D;
+    --ink-dim:#6E6C60;
+    --ink-faint:#9C9A8C;
+    --line:#DEDBCC;
+    --accent:#2F5D5A;
+    --accent-ink:#F4F3EC;
+    --accent-soft:#DDE8E4;
+    --gold:#A9782F;
+    --gold-soft:#F0E4C8;
+    --brick:#8B4030;
+    --brick-soft:#F2E1DA;
+    --c3:#3D5A73;
+    --c3-soft:#DCE6EA;
+    --c4:#6B4A7A;
+    --c4-soft:#E8DFEA;
+    --c5:#54672E;
+    --c5-soft:#E3E8D3;
+    --c6:#B15E23;
+    --c6-soft:#F3E2D0;
+    --c7:#4A5568;
+    --c7-soft:#E2E5EA;
+    --c8:#8A3F63;
+    --c8-soft:#F0DEE7;
+    --shadow: 0 1px 2px rgba(36,35,29,.06), 0 8px 24px -12px rgba(36,35,29,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1C18;
+      --surface:#242520;
+      --surface-2:#2C2D26;
+      --ink:#EDEBE0;
+      --ink-dim:#ABA894;
+      --ink-faint:#7A7868;
+      --line:#3A3B32;
+      --accent:#7FBDB5;
+      --accent-ink:#14201E;
+      --accent-soft:#233330;
+      --gold:#E0B65E;
+      --gold-soft:#332A16;
+      --brick:#E39C87;
+      --brick-soft:#3A241E;
+      --c3:#8FB8D1;
+      --c3-soft:#1E2C36;
+      --c4:#C9A8D6;
+      --c4-soft:#2E2433;
+      --c5:#A9C17A;
+      --c5-soft:#28311A;
+      --c6:#E0A165;
+      --c6-soft:#3A2717;
+      --c7:#9AA6B8;
+      --c7-soft:#262A32;
+      --c8:#D693B0;
+      --c8-soft:#33212A;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1C18;
+    --surface:#242520;
+    --surface-2:#2C2D26;
+    --ink:#EDEBE0;
+    --ink-dim:#ABA894;
+    --ink-faint:#7A7868;
+    --line:#3A3B32;
+    --accent:#7FBDB5;
+    --accent-ink:#14201E;
+    --accent-soft:#233330;
+    --gold:#E0B65E;
+    --gold-soft:#332A16;
+    --brick:#E39C87;
+    --brick-soft:#3A241E;
+    --c3:#8FB8D1;
+    --c3-soft:#1E2C36;
+    --c4:#C9A8D6;
+    --c4-soft:#2E2433;
+    --c5:#A9C17A;
+    --c5-soft:#28311A;
+    --c6:#E0A165;
+    --c6-soft:#3A2717;
+    --c7:#9AA6B8;
+    --c7-soft:#262A32;
+    --c8:#D693B0;
+    --c8-soft:#33212A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif;
+    padding-inline:20px;
+  }
+  ::selection{ background:var(--accent-soft); }
+
+  .wrap{ max-width:920px; margin:0 auto; }
+
+  /* ---- Header ---- */
+  header.page{
+    padding-block: 34px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: clamp(32px, 6vw, 48px);
+    line-height:1.05;
+    margin:0 0 10px;
+    text-wrap:balance;
+    letter-spacing:-0.01em;
+  }
+  .lede{
+    font-size:15px;
+    color:var(--ink-dim);
+    max-width:62ch;
+    line-height:1.6;
+    margin:0 0 22px;
+  }
+
+  .stats{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .stat{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 14px;
+    min-width:104px;
+    box-shadow:var(--shadow);
+  }
+  .stat b{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:22px;
+    font-variant-numeric: tabular-nums;
+    line-height:1.1;
+  }
+  .stat span{
+    font-size:11.5px;
+    color:var(--ink-dim);
+  }
+
+  .coverage-note{
+    margin-top:18px;
+    font-size:12.5px;
+    color:var(--ink-faint);
+    border-left:2px solid var(--gold);
+    padding-left:10px;
+    line-height:1.55;
+    max-width:62ch;
+  }
+
+  /* ---- Controls ---- */
+  .controls{
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:var(--bg);
+    padding-block:14px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search{
+    flex:1 1 220px;
+    position:relative;
+  }
+  .search input{
+    width:100%;
+    font-family:inherit;
+    font-size:14px;
+    padding:9px 12px 9px 32px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .search input:focus{
+    outline:2px solid var(--accent);
+    outline-offset:1px;
+  }
+  .search svg{
+    position:absolute;
+    left:10px; top:50%; transform:translateY(-50%);
+    width:14px; height:14px;
+    color:var(--ink-faint);
+  }
+  .chip-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{
+    font-family:'Noto Sans KR', sans-serif;
+    font-size:12.5px;
+    padding:7px 12px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--ink-dim);
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .chip:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  .chip[aria-pressed="true"]{
+    background:var(--accent);
+    color:var(--accent-ink);
+    border-color:var(--accent);
+    font-weight:600;
+  }
+  .count-note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin-left:auto;
+    white-space:nowrap;
+  }
+
+  /* ---- Entries ---- */
+  main{ padding-block: 24px 60px; }
+
+  .day{
+    margin-bottom: 30px;
+  }
+  .day-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .day-date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    font-variant-numeric: tabular-nums;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .pill{
+    font-size:11px;
+    padding:2.5px 9px;
+    border-radius:999px;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .pill.p0{ background:var(--brick-soft); color:var(--brick); }
+  .pill.p1{ background:var(--gold-soft); color:var(--gold); }
+  .pill.p2{ background:var(--c3-soft); color:var(--c3); }
+  .pill.p3{ background:var(--c4-soft); color:var(--c4); }
+  .pill.p4{ background:var(--c5-soft); color:var(--c5); }
+  .pill.p5{ background:var(--c6-soft); color:var(--c6); }
+  .pill.p6{ background:var(--c7-soft); color:var(--c7); }
+  .pill.p7{ background:var(--c8-soft); color:var(--c8); }
+  .pill.cat{ background:var(--surface-2); color:var(--ink-dim); font-weight:500; }
+
+  .day-title{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink-dim);
+    margin:0 0 2px;
+    line-height:1.4;
+  }
+  .day-source{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    margin:0 0 12px;
+  }
+
+  .vocab-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .table-scroll{ overflow-x:auto; border-radius:12px; }
+  .vocab-table th{
+    text-align:left;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:600;
+    padding:10px 14px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--line);
+  }
+  .vocab-table td{
+    padding:11px 14px;
+    font-size:13.5px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+    line-height:1.5;
+  }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr.hidden{ display:none; }
+  .es{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-style:italic;
+    color:var(--accent);
+    white-space:nowrap;
+  }
+  .pos{ color:var(--ink-faint); font-size:12px; white-space:nowrap; }
+  .ko{ color:var(--ink); font-weight:500; }
+  .ex{ color:var(--ink-dim); font-size:13px; }
+  .ex i{ font-style:italic; }
+
+  .day.all-hidden{ display:none; }
+
+  .empty-state{
+    display:none;
+    text-align:center;
+    padding:50px 20px;
+    color:var(--ink-faint);
+    font-size:14px;
+  }
+  .empty-state.show{ display:block; }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding-block:22px 40px;
+    font-size:12px;
+    color:var(--ink-faint);
+    line-height:1.7;
+  }
+
+  @media (max-width:520px){
+    .day-head{ flex-direction:column; align-items:flex-start; gap:6px; }
+    .stat{ min-width: 88px; padding:8px 10px; }
+    .stat b{ font-size:18px; }
+    .count-note{ margin-left:0; width:100%; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="page">
+    <p class="eyebrow">1일 1스페인어 기사 · 누적 단어장</p>
+    <h1>Bitácora Hispana</h1>
+    <p class="lede">2026년 8월 27일부터 오늘까지, 중남미 각국 시사 기사를 읽으며 뽑아온 어휘를 모두 모았다. 검색창에 스페인어나 한국어 뜻을 입력하면 바로 걸러진다.</p>
+    <div class="stats" id="stats"></div>
+    <p class="coverage-note">기록은 2026년 8월 27일 자 기사부터 보관되어 있다. 그 이전(7월 29일~8월 26일) 기사의 단어는 이 세션의 저장 기록에 없어 포함하지 못했다. 9월 14일 항목의 마지막 6개(constante, más allá de, brecha, decisivo, equidad, exigir)는 기사 원문이 아니라 그날 학습 자료의 요약·예시 문장에서 뽑은 표현이다.</p>
+  </header>
+
+  <div class="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="q" type="text" placeholder="단어나 뜻 검색 (예: arancel, 관세)" autocomplete="off">
+    </div>
+    <div class="chip-row" id="countryChips"></div>
+    <span class="count-note" id="countNote"></span>
+  </div>
+
+  <main id="main"></main>
+
+  <div class="empty-state" id="emptyState">검색 결과가 없다. 다른 단어로 다시 찾아보길.</div>
+
+  <footer>
+    <div class="wrap" id="footerNote"></div>
+  </footer>
+</div>
+
+<script>
+const DATA = [
+{date:"2026-08-27", country:"mx", countryName:"멕시코", cat:"외교·무역", title:"Sheinbaum descarta “rompimiento” entre EEUU y Canadá", source:"Infobae, 2026-08-24", words:[
+  {es:"arancel", pos:"명사(남)", ko:"관세", ex:"El arancel a las importaciones generó tensión comercial entre los dos países."},
+  {es:"rompimiento", pos:"명사(남)", ko:"단절, 결렬", ex:"Sheinbaum descartó cualquier rompimiento entre EE. UU. y Canadá."},
+  {es:"desencuentro", pos:"명사(남)", ko:"불일치, 의견 충돌", ex:"Hubo un desencuentro entre los negociadores durante la última ronda."},
+  {es:"plática", pos:"명사(여)", ko:"대화, 회담 (멕시코식 표현)", ex:"Las pláticas entre los tres países continuarán la próxima semana."},
+  {es:"triangulación", pos:"명사(여)", ko:"삼각 관계, 삼각화", ex:"Analistas advierten sobre una posible triangulación comercial en la región."},
+  {es:"igualar", pos:"동사(원형)", ko:"동등하게 맞추다", ex:"México busca igualar las condiciones arancelarias con sus socios."},
+  {es:"fracasar", pos:"동사(원형)", ko:"실패하다", ex:"Las negociaciones podrían fracasar si no hay concesiones mutuas."},
+  {es:"entrar en vigor", pos:"동사구", ko:"발효되다", ex:"El nuevo arancel entrará en vigor el próximo mes."}
+]},
+{date:"2026-08-28", country:"bo", countryName:"볼리비아", cat:"경제·사회", title:"Empresarios del agro, COB, alcaldías y gremiales exigen abrogar decreto sobre el diésel", source:"Fides/ANF, 2026-08-27", words:[
+  {es:"abrogar", pos:"동사(원형)", ko:"(법령을) 폐지하다", ex:"Los gremiales exigieron abrogar el decreto sobre el diésel."},
+  {es:"decreto supremo", pos:"명사구(남)", ko:"최고행정명령(대통령령)", ex:"El gobierno emitió un decreto supremo para regular el precio del combustible."},
+  {es:"contrabando", pos:"명사(남)", ko:"밀수", ex:"El contrabando de diésel hacia países vecinos agravó la escasez."},
+  {es:"gremial", pos:"명사(남/여)", ko:"동업조합, 단체", ex:"Los gremiales del transporte bloquearon las carreteras en protesta."},
+  {es:"bloquear", pos:"동사(원형)", ko:"봉쇄하다, 막다", ex:"Los productores bloquearon rutas clave para exigir la derogación del decreto."},
+  {es:"estado de excepción", pos:"명사구(남)", ko:"비상사태", ex:"El gobierno evaluó declarar el estado de excepción ante los bloqueos."},
+  {es:"sufrir en carne propia", pos:"관용구", ko:"직접 겪다, 몸소 체험하다", ex:"Los agricultores sufren en carne propia la escasez de combustible."},
+  {es:"lucrar", pos:"동사(원형)", ko:"부당하게 이득을 취하다", ex:"Denunciaron que algunos intermediarios lucran con la escasez de diésel."}
+]},
+{date:"2026-08-29", country:"bo", countryName:"볼리비아", cat:"문화·역사(종교전통)", title:"Fe y tradición chapaca: La imagen de San Roque visitó a la Virgen de Chaguaya", source:"Conferencia Episcopal Boliviana, 2026-08-27", words:[
+  {es:"feligresía", pos:"명사(여)", ko:"신자들, 교구민", ex:"La feligresía acompañó la imagen de San Roque durante todo el recorrido."},
+  {es:"promesante", pos:"명사(남/여)", ko:"(종교적 서원을 이행하는) 순례자", ex:"Cientos de promesantes caminaron hasta el santuario para cumplir su promesa."},
+  {es:"comitiva", pos:"명사(여)", ko:"수행단, 행렬", ex:"Una comitiva de fieles escoltó la imagen durante la procesión."},
+  {es:"custodiar", pos:"동사(원형)", ko:"지키다, 호위하다", ex:"Los devotos custodiaron la imagen durante todo el trayecto."},
+  {es:"santuario", pos:"명사(남)", ko:"성소, 성지", ex:"La Virgen de Chaguaya tiene su santuario en el sur de Bolivia."},
+  {es:"congregar", pos:"동사(원형)", ko:"모이게 하다, 집결시키다", ex:"La festividad congregó a miles de fieles de la región chapaca."},
+  {es:"fortalecer", pos:"동사(원형)", ko:"강화하다", ex:"La tradición ayuda a fortalecer la identidad religiosa de la comunidad."},
+  {es:"enmarcarse en", pos:"동사구", ko:"~의 맥락 안에 있다", ex:"La visita se enmarca en las celebraciones patronales de la región."}
+]},
+{date:"2026-08-30", country:"mx", countryName:"멕시코", cat:"정치·경제", title:"Claudia Sheinbaum sostiene que México “va mejor” en su segundo año de gobierno", source:"Infobae, 2026-08-28", words:[
+  {es:"informe de gobierno", pos:"명사구(남)", ko:"국정보고(대통령 연례 보고)", ex:"Sheinbaum presentó su segundo informe de gobierno ante el Congreso."},
+  {es:"arancel", pos:"명사(남)", ko:"관세", ex:"Los aranceles impuestos por EE. UU. afectaron las exportaciones mexicanas."},
+  {es:"disminuir", pos:"동사(원형)", ko:"감소하다, 줄이다", ex:"El desempleo disminuyó respecto al año anterior, según el informe."},
+  {es:"exportación", pos:"명사(여)", ko:"수출", ex:"Las exportaciones hacia Norteamérica se mantuvieron estables."},
+  {es:"optimista", pos:"형용사", ko:"낙관적인", ex:"La presidenta se mostró optimista sobre el rumbo de la economía."},
+  {es:"bienestar", pos:"명사(남)", ko:"복지, 안녕", ex:"El gobierno destacó avances en programas de bienestar social."},
+  {es:"enfrentar", pos:"동사(원형)", ko:"맞서다, 대처하다", ex:"México debe enfrentar la incertidumbre comercial con Estados Unidos."},
+  {es:"fortalecer el mercado interno", pos:"동사구", ko:"내수 시장을 강화하다", ex:"Sheinbaum propuso fortalecer el mercado interno ante la presión arancelaria."}
+]},
+{date:"2026-08-31", country:"mx", countryName:"멕시코", cat:"외교·안보(국경·이주)", title:"México confirma que drones derribados por EE.UU. eran usados para traficar migrantes", source:"Infobae/EFE, 2026-08-29", words:[
+  {es:"derribar", pos:"동사(원형)", ko:"격추하다, 무너뜨리다", ex:"Estados Unidos derribó los drones utilizados para el tráfico de migrantes."},
+  {es:"traficante", pos:"명사(남/여)", ko:"밀매업자", ex:"Los traficantes usaban drones para vigilar los cruces fronterizos."},
+  {es:"vigilar", pos:"동사(원형)", ko:"감시하다", ex:"Las autoridades vigilan la frontera con tecnología no tripulada."},
+  {es:"soberanía", pos:"명사(여)", ko:"주권", ex:"México defendió su soberanía ante la operación unilateral de EE. UU."},
+  {es:"despliegue", pos:"명사(남)", ko:"(병력·장비) 배치, 전개", ex:"El despliegue de drones respondió a la creciente actividad de tráfico."},
+  {es:"neutralizar", pos:"동사(원형)", ko:"무력화하다, 제압하다", ex:"Las fuerzas armadas neutralizaron varios drones no autorizados."},
+  {es:"unilateral", pos:"형용사", ko:"일방적인", ex:"México cuestionó el carácter unilateral de la acción estadounidense."},
+  {es:"inhabilitar", pos:"동사(원형)", ko:"무력화하다, 기능을 정지시키다", ex:"El operativo buscó inhabilitar la red de tráfico de migrantes."}
+]},
+{date:"2026-09-01", country:"bo", countryName:"볼리비아", cat:"정치·안보(치안)", title:"Rodrigo Paz encarga a nuevos mandos policiales combatir el “narcoterrorismo” en Bolivia", source:"Infobae/EFE, 2026-08-31", words:[
+  {es:"posesionar", pos:"동사(원형)", ko:"취임시키다 (볼리비아식 표현)", ex:"Rodrigo Paz posesionó a los nuevos mandos policiales."},
+  {es:"encargar", pos:"동사(원형)", ko:"임무를 맡기다, 위임하다", ex:"El presidente encargó a la policía combatir el narcoterrorismo."},
+  {es:"narcoterrorismo", pos:"명사(남)", ko:"마약테러리즘", ex:"El gobierno declaró prioridad nacional la lucha contra el narcoterrorismo."},
+  {es:"dimitir", pos:"동사(원형)", ko:"사임하다", ex:"El anterior comandante dimitió antes del relevo policial."},
+  {es:"acechar", pos:"동사(원형)", ko:"노리다, 위협하다", ex:"Las bandas de narcotráfico acechan las zonas fronterizas."},
+  {es:"orden de aprehensión", pos:"명사구(여)", ko:"체포영장", ex:"Se emitió una orden de aprehensión contra los líderes de la red criminal."},
+  {es:"trata agravada de personas", pos:"명사구(여)", ko:"가중 인신매매", ex:"Los nuevos mandos investigarán casos de trata agravada de personas."},
+  {es:"alzamiento armado", pos:"명사구(남)", ko:"무장봉기", ex:"Las autoridades descartaron cualquier riesgo de alzamiento armado."}
+]},
+{date:"2026-09-02", country:"mx", countryName:"멕시코", cat:"경제·무역(외국인투자)", title:"Empresas huyen de México: la incertidumbre del T-MEC empuja la inversión extranjera hacia Asia", source:"Infobae, 2026-09-01", words:[
+  {es:"arancel", pos:"명사(남)", ko:"관세", ex:"La incertidumbre sobre los aranceles frenó nuevas inversiones."},
+  {es:"renegociación", pos:"명사(여)", ko:"재협상", ex:"La renegociación del T-MEC generó incertidumbre entre los inversionistas."},
+  {es:"relocalizarse", pos:"동사(원형)", ko:"(기업이) 이전하다, 재배치되다", ex:"Varias empresas decidieron relocalizarse hacia Asia."},
+  {es:"disparar(se)", pos:"동사(원형)", ko:"급증하다, 치솟다", ex:"La inversión extranjera hacia Asia se disparó en los últimos meses."},
+  {es:"inversión greenfield", pos:"명사구(여)", ko:"그린필드 투자(신규설립투자)", ex:"La inversión greenfield en México cayó frente al año anterior."},
+  {es:"déficit comercial", pos:"명사구(남)", ko:"무역적자", ex:"El déficit comercial con Asia se amplió durante el periodo."},
+  {es:"tajante", pos:"형용사", ko:"단호한, 명확한", ex:"El sector empresarial fue tajante al advertir sobre la fuga de inversión."},
+  {es:"resiliente", pos:"형용사", ko:"회복력 있는", ex:"México sigue siendo un mercado resiliente pese a la incertidumbre."}
+]},
+{date:"2026-09-03", country:"bo", countryName:"볼리비아", cat:"경제·에너지(국영기업 개입)", title:"Bolivia ordena la intervención de YPFB para enfrentar la crisis de combustibles y sanear la petrolera estatal", source:"Infobae, 2026-09-03", words:[
+  {es:"disponer", pos:"동사(원형)", ko:"명하다, 지시하다", ex:"El gobierno dispuso la intervención de YPFB."},
+  {es:"intervención", pos:"명사(여)", ko:"개입, 관리개입", ex:"La intervención busca sanear la petrolera estatal."},
+  {es:"decreto supremo", pos:"명사구(남)", ko:"최고행정명령", ex:"Un nuevo decreto supremo autorizó la intervención de la empresa estatal."},
+  {es:"carburante", pos:"명사(남)", ko:"연료", ex:"La escasez de carburante afectó el transporte en varias regiones."},
+  {es:"abastecimiento", pos:"명사(남)", ko:"공급, 보급", ex:"El gobierno prometió normalizar el abastecimiento de combustible."},
+  {es:"sanear", pos:"동사(원형)", ko:"(재정·기관을) 정상화하다", ex:"La intervención busca sanear las finanzas de YPFB."},
+  {es:"hidrocarburos", pos:"명사(남·복수)", ko:"탄화수소, 석유·가스 자원", ex:"Bolivia depende en gran medida de sus hidrocarburos."},
+  {es:"dedicarse a (+ subj.)", pos:"동사구", ko:"~하는 데 전념하다", ex:"Se ordenó que la nueva gestión se dedique a resolver la crisis."}
+]},
+{date:"2026-09-04", country:"bo", countryName:"볼리비아", cat:"외교·안보(대칠레 관계 정상화)", title:"Bolivia y Chile coordinarán operativos y datos en tiempo real contra el crimen", source:"El Deber, 2026-09-02", words:[
+  {es:"punto focal", pos:"명사구(남)", ko:"연락창구, 담당 부서", ex:"Ambos países designarán un punto focal para coordinar la cooperación."},
+  {es:"mesa de trabajo", pos:"명사구(여)", ko:"실무협의체", ex:"Se instalará una mesa de trabajo binacional contra el crimen organizado."},
+  {es:"trata y tráfico de personas", pos:"명사구(여)", ko:"인신매매 및 밀입국", ex:"La cooperación incluirá acciones contra la trata y tráfico de personas."},
+  {es:"receptación", pos:"명사(여)", ko:"장물취득(죄)", ex:"El acuerdo también abarca delitos de receptación de bienes robados."},
+  {es:"legitimación de ganancias ilícitas", pos:"명사구(여)", ko:"불법수익 세탁(자금세탁)", ex:"Coordinarán esfuerzos contra la legitimación de ganancias ilícitas."},
+  {es:"hito", pos:"명사(남)", ko:"이정표, 획기적 사건", ex:"El acuerdo marca un hito en la relación bilateral."},
+  {es:"empeñar la palabra", pos:"동사구", ko:"약속을 걸다, 다짐하다", ex:"Los cancilleres empeñaron su palabra para cumplir los compromisos."},
+  {es:"trascender", pos:"동사(원형)", ko:"초월하다, 범위를 넘어서다", ex:"La cooperación busca trascender las diferencias políticas del pasado."}
+]},
+{date:"2026-09-05", country:"mx", countryName:"멕시코", cat:"문화·전통(음식유산)", title:"Este fin de semana arranca el Festival Pulque, Gastronomía Típica y Mezcal", source:"Infobae México, 2026-09-05", words:[
+  {es:"maguey", pos:"명사(남)", ko:"용설란(풀케 원료 식물)", ex:"El maguey es la planta base para producir pulque."},
+  {es:"aguamiel", pos:"명사(남)", ko:"용설란 수액", ex:"El aguamiel se extrae del maguey antes de fermentarse."},
+  {es:"tlachiquero", pos:"명사(남)", ko:"풀케 채취 장인", ex:"El tlachiquero recolecta el aguamiel de manera artesanal."},
+  {es:"fermentar / fermentación", pos:"동사 / 명사(여)", ko:"발효하다 / 발효", ex:"El aguamiel se somete a un proceso de fermentación para convertirse en pulque."},
+  {es:"auge", pos:"명사(남)", ko:"전성기, 부흥", ex:"El pulque vive un nuevo auge entre las nuevas generaciones."},
+  {es:"Denominación de Origen", pos:"명사구(여)", ko:"원산지 명칭(제도)", ex:"Productores buscan una Denominación de Origen para el pulque."},
+  {es:"municipio", pos:"명사(남)", ko:"지방자치단체, 시(군)", ex:"El festival se celebró en varios municipios del centro del país."},
+  {es:"trámite", pos:"명사(남)", ko:"행정 절차, 수속", ex:"El trámite para obtener la certificación puede tardar varios años."}
+]},
+{date:"2026-09-06", country:"bo", countryName:"볼리비아", cat:"외교·에너지(지역통합)", title:"Bolivia promoverá en su presidencia de Olacde diversificar e integrar sistemas energéticos", source:"EFE/Infobae, 2026-09-05", words:[
+  {es:"asumir", pos:"동사(원형)", ko:"(직책 등을) 맡다", ex:"Bolivia asumió la presidencia pro tempore de la organización."},
+  {es:"anticipar", pos:"동사(원형)", ko:"예고하다, 앞서 알리다", ex:"El canciller anticipó los ejes de la nueva presidencia."},
+  {es:"diversificación energética", pos:"명사구(여)", ko:"에너지원 다변화", ex:"La diversificación energética será un eje central de la presidencia boliviana."},
+  {es:"eje de trabajo", pos:"명사구(남)", ko:"작업 축, 중점 과제", ex:"Definieron tres ejes de trabajo para la integración energética."},
+  {es:"impulsar", pos:"동사(원형)", ko:"추진하다, 촉진하다", ex:"Bolivia buscará impulsar la interconexión eléctrica regional."},
+  {es:"combustible de transición", pos:"명사구(남)", ko:"전환용 연료", ex:"El gas natural fue mencionado como combustible de transición."},
+  {es:"interconexión", pos:"명사(여)", ko:"연계, 상호연결", ex:"La interconexión energética facilitaría el intercambio regional."},
+  {es:"alianza público-privada", pos:"명사구(여)", ko:"민관협력", ex:"Se promoverán alianzas público-privadas para financiar los proyectos."}
+]},
+{date:"2026-09-07", country:"mx", countryName:"멕시코", cat:"정치·입법(헌법개정)", title:"Monreal adelanta cuándo votará San Lázaro la reforma de Sheinbaum sobre la doble nacionalidad", source:"Infobae México, 2026-09-07", words:[
+  {es:"iniciativa", pos:"명사(여)", ko:"(법안) 발의, 제안", ex:"La iniciativa de reforma constitucional fue enviada al Congreso."},
+  {es:"doble nacionalidad", pos:"명사구(여)", ko:"이중국적", ex:"La reforma limitaría cargos públicos para personas con doble nacionalidad."},
+  {es:"renunciar a", pos:"동사구", ko:"~을 포기하다", ex:"Los candidatos deberán renunciar a su otra nacionalidad."},
+  {es:"prevalecer", pos:"동사(원형)", ko:"우세하다, 우선하다", ex:"La nacionalidad mexicana deberá prevalecer para ciertos cargos."},
+  {es:"respaldar", pos:"동사(원형)", ko:"지지하다, 뒷받침하다", ex:"La bancada oficialista respaldó la iniciativa de Sheinbaum."},
+  {es:"dar publicidad a", pos:"동사구", ko:"공표하다, 널리 알리다", ex:"El Congreso dio publicidad al dictamen antes de la votación."},
+  {es:"aspirar a", pos:"동사구", ko:"~을 열망하다, 지망하다", ex:"Quienes aspiren a un cargo de elección deberán cumplir el requisito."},
+  {es:"gubernatura", pos:"명사(여)", ko:"주지사직", ex:"La reforma también afecta a quienes buscan una gubernatura."}
+]},
+{date:"2026-09-08", country:"bo", countryName:"볼리비아", cat:"정치·사회(마약정책·국제협력)", title:"El Gobierno de Bolivia lanzó una nueva política antidroga tras el alza de los cultivos de coca", source:"Infobae/EFE, 2026-09-08", words:[
+  {es:"lanzar", pos:"동사(원형)", ko:"(정책 등을) 출범시키다", ex:"El gobierno lanzó una nueva política antidroga."},
+  {es:"excedentario", pos:"형용사", ko:"과잉의, 잉여의", ex:"Se busca reducir los cultivos de coca considerados excedentarios."},
+  {es:"interdicción", pos:"명사(여)", ko:"단속, 저지", ex:"La nueva estrategia refuerza la interdicción del narcotráfico."},
+  {es:"desarticular", pos:"동사(원형)", ko:"(조직을) 와해시키다, 해체하다", ex:"Las fuerzas de seguridad desarticularon varias redes de tráfico."},
+  {es:"precursor químico", pos:"명사구(남)", ko:"화학전구물질", ex:"Se intensificó el control de precursores químicos usados en el narcotráfico."},
+  {es:"recuperación de activos", pos:"명사구(여)", ko:"자산환수", ex:"La política incluye mecanismos de recuperación de activos ilícitos."},
+  {es:"escasez", pos:"명사(여)", ko:"부족, 결핍", ex:"La escasez de recursos dificulta el combate al narcotráfico."},
+  {es:"mandatario", pos:"명사(남)", ko:"국가원수, 대통령", ex:"El mandatario boliviano presentó la estrategia junto a su gabinete."}
+]},
+{date:"2026-09-09", country:"mx", countryName:"멕시코", cat:"경제·무역(대중국 반덤핑 조치)", title:"México golpea a China dos veces en 48 horas mientras negocia con EEUU la revisión del T-MEC", source:"Infobae México, 2026-09-09", words:[
+  {es:"cuota compensatoria", pos:"명사구(여)", ko:"상계관세", ex:"México impuso una cuota compensatoria a productos chinos."},
+  {es:"cuadruplicar", pos:"동사(원형)", ko:"4배로 늘리다", ex:"El arancel se cuadruplicó tras la investigación por dumping."},
+  {es:"vigente", pos:"형용사", ko:"유효한, 현행의", ex:"La medida estará vigente durante los próximos cinco años."},
+  {es:"discriminación de precios", pos:"명사구(여)", ko:"가격차별(덤핑)", ex:"La investigación confirmó discriminación de precios por parte de China."},
+  {es:"subvaloración", pos:"명사(여)", ko:"가격 저평가", ex:"Se detectó subvaloración en las declaraciones de importación."},
+  {es:"impugnar", pos:"동사(원형)", ko:"이의를 제기하다", ex:"Las empresas chinas podrían impugnar la resolución ante la OMC."},
+  {es:"desechar", pos:"동사(원형)", ko:"기각하다, 버리다", ex:"México desechó los argumentos presentados por los exportadores chinos."},
+  {es:"endurecer", pos:"동사(원형)", ko:"강화하다, 엄격하게 하다", ex:"El gobierno decidió endurecer las medidas comerciales contra China."}
+]},
+{date:"2026-09-10", country:"mx", countryName:"멕시코", cat:"외교·안보(대미관계·선거정치)", title:"Claudia Sheinbaum responde a Marco Rubio: “No se debe usar a México” en campaña electoral de EEUU", source:"Infobae México, 2026-09-10", words:[
+  {es:"mañanera", pos:"명사(여)", ko:"(멕시코 대통령) 아침 정례 기자회견", ex:"Sheinbaum respondió a Rubio durante su mañanera."},
+  {es:"señalamiento", pos:"명사(남)", ko:"지적, 비난", ex:"Rechazó el señalamiento hecho por el senador estadounidense."},
+  {es:"no ser ni de lejos suficiente", pos:"관용구", ko:"결코 충분하지 않다", ex:"Rubio afirmó que los esfuerzos de México no son ni de lejos suficientes."},
+  {es:"narcoterrorista", pos:"명사/형용사", ko:"마약테러리스트(의)", ex:"EE. UU. calificó a ciertos grupos mexicanos de narcoterroristas."},
+  {es:"gira", pos:"명사(여)", ko:"순회, 유세", ex:"Rubio realizó una gira por la región antes de las declaraciones."},
+  {es:"de una forma u otra", pos:"관용구", ko:"어떻게든, 어떤 식으로든", ex:"Sheinbaum dijo que México no debe usarse de una forma u otra en la campaña."},
+  {es:"usar a alguien en su campaña", pos:"동사구", ko:"~을 선거운동에 이용하다", ex:"Pidió no usar a México en la campaña electoral de Estados Unidos."},
+  {es:"tránsito", pos:"명사(남)", ko:"통과, 이동", ex:"Se discutió el tránsito de migrantes por territorio mexicano."}
+]},
+{date:"2026-09-11", country:"bo", countryName:"볼리비아", cat:"외교·정치(OEA 중재)", title:"OEA pide a todos los sectores en Bolivia “priorizar el diálogo” y abstenerse de bloqueos", source:"Infobae/EFE, 2026-09-11", words:[
+  {es:"bloqueo", pos:"명사(남)", ko:"봉쇄, 도로차단", ex:"La OEA pidió abstenerse de nuevos bloqueos en las carreteras."},
+  {es:"abstenerse de", pos:"동사구", ko:"~을 삼가다, 자제하다", ex:"Los sectores sociales deben abstenerse de medidas de presión."},
+  {es:"hacer un llamado a", pos:"동사구", ko:"~에게 촉구하다", ex:"La OEA hizo un llamado a priorizar el diálogo entre las partes."},
+  {es:"exhortar", pos:"동사(원형)", ko:"권고하다, 촉구하다", ex:"El organismo exhortó al gobierno y la oposición a dialogar."},
+  {es:"marco constitucional", pos:"명사구(남)", ko:"헌법적 틀", ex:"Pidieron resolver la crisis dentro del marco constitucional."},
+  {es:"polarización", pos:"명사(여)", ko:"양극화", ex:"La polarización política dificulta el diálogo entre los sectores."},
+  {es:"desplegar", pos:"동사(원형)", ko:"파견하다, 전개하다", ex:"La OEA desplegó una misión de observación en Bolivia."},
+  {es:"abordar", pos:"동사(원형)", ko:"다루다, 접근하다", ex:"El comunicado abordó las causas de la crisis social."}
+]},
+{date:"2026-09-12", country:"mx", countryName:"멕시코", cat:"문화·관광(박물관 통계 비교)", title:"La Ciudad de México tiene más museos que París, pero menos que Londres: el dato que pocos turistas conocen", source:"Infobae México, 2026-09-11", words:[
+  {es:"recinto (museístico)", pos:"명사(남)", ko:"(박물관 등의) 시설, 부지", ex:"La ciudad cuenta con más de 170 recintos museísticos."},
+  {es:"acreditación", pos:"명사(여)", ko:"인증, 공인", ex:"No todos los museos cuentan con acreditación oficial."},
+  {es:"cifra", pos:"명사(여)", ko:"수치", ex:"La cifra sorprendió incluso a los especialistas en turismo cultural."},
+  {es:"discrepancia", pos:"명사(여)", ko:"불일치, 차이", ex:"Existe discrepancia entre las distintas fuentes sobre el número exacto."},
+  {es:"per cápita", pos:"부사구", ko:"1인당", ex:"El número de museos per cápita es menor que en otras capitales."},
+  {es:"de acuerdo con", pos:"전치사구", ko:"~에 따르면", ex:"De acuerdo con el informe, la ciudad supera a París en número de museos."},
+  {es:"extranjero", pos:"명사/형용사(남)", ko:"외국인, 외국의", ex:"Muchos extranjeros desconocen esta cifra sobre los museos de la capital."},
+  {es:"contar con / recibir", pos:"동사구", ko:"~을 보유하다 / 방문객을 맞이하다", ex:"La ciudad recibe millones de visitantes en sus museos cada año."}
+]},
+{date:"2026-09-13", country:"bo", countryName:"볼리비아", cat:"문화·역사(수호성인 축제·무형유산)", title:"Sucre se viste de fiesta y devoción con la Gran Entrada en honor a la Virgen de Guadalupe", source:"Los Tiempos/ERBOL, 2026-09-12", words:[
+  {es:"regocijo", pos:"명사(남)", ko:"기쁨, 환희", ex:"La ciudad vivió un ambiente de regocijo durante la festividad."},
+  {es:"patrona / patronal", pos:"명사(여) / 형용사", ko:"수호성인(의)", ex:"La Virgen de Guadalupe es la patrona de Sucre."},
+  {es:"Entrada Folclórica", pos:"명사구(여)", ko:"민속 행렬(축제)", ex:"La Entrada Folclórica reunió a decenas de fraternidades."},
+  {es:"transitar", pos:"동사(원형)", ko:"지나가다, 행진하다", ex:"Los danzantes transitaron por las principales calles del centro histórico."},
+  {es:"vestimenta", pos:"명사(여)", ko:"복장, 의상", ex:"Cada fraternidad lució una vestimenta tradicional distinta."},
+  {es:"manifestación (cultural y religiosa)", pos:"명사(여)", ko:"(문화·종교적) 표현, 행사", ex:"La festividad es una manifestación cultural y religiosa arraigada."},
+  {es:"consolidar", pos:"동사(원형)", ko:"공고히 하다, 확립하다", ex:"El evento ayuda a consolidar la identidad chuquisaqueña."},
+  {es:"patrimonio vivo", pos:"명사구(남)", ko:"살아있는 유산(무형유산)", ex:"La Entrada es considerada patrimonio vivo de la región."}
+]},
+{date:"2026-09-14", country:"mx", countryName:"멕시코", cat:"사회·교육(PISA 2025·공교육)", title:"Sheinbaum responde a críticas sobre escuelas públicas: tienen mejor puntaje frente a privadas en prueba PISA 2025", source:"Infobae México, 2026-09-12", words:[
+  {es:"calificación", pos:"명사(여)", ko:"점수, 평가", ex:"Las escuelas públicas tuvieron mejor calificación que las privadas."},
+  {es:"sindicalizado/a", pos:"형용사", ko:"노조에 가입한", ex:"Los maestros llevan décadas sindicalizados en México."},
+  {es:"magisterio", pos:"명사(남)", ko:"교원단, 교직", ex:"El gobierno agradeció al magisterio nacional."},
+  {es:"umbral mínimo", pos:"명사구(남)", ko:"최저 기준선", ex:"Muchos alumnos no alcanzan el umbral mínimo de desempeño."},
+  {es:"cuartil", pos:"명사(남)", ko:"사분위", ex:"Un tercio de los alumnos se ubica en el cuartil más bajo."},
+  {es:"desempeño", pos:"명사(남)", ko:"성과, 수행 능력", ex:"El desempeño en matemáticas fue el más bajo de los tres."},
+  {es:"llegar a / llega", pos:"동사(구)", ko:"(수치가) ~에 이르다, 달하다", ex:"La brecha entre ricos y pobres llega a 68 puntos."},
+  {es:"ventaja", pos:"명사(여)", ko:"이점, 우위", ex:"Los estudiantes con más ventajas económicas obtienen mejores resultados."},
+  {es:"constante", pos:"형용사", ko:"꾸준한, 지속적인", ex:"El buen desempeño refleja el trabajo constante de los maestros."},
+  {es:"más allá de", pos:"전치사구", ko:"~을 넘어서, ~뿐만 아니라", ex:"La equidad educativa exige políticas que vayan más allá del aula."},
+  {es:"brecha", pos:"명사(여)", ko:"격차", ex:"La brecha de 68 puntos muestra que el origen socioeconómico sigue siendo decisivo."},
+  {es:"decisivo/a", pos:"형용사", ko:"결정적인", ex:"El origen socioeconómico sigue siendo decisivo en los resultados."},
+  {es:"equidad", pos:"명사(여)", ko:"형평성, 공평", ex:"Mejorar la equidad educativa exige políticas más amplias."},
+  {es:"exigir / exige", pos:"동사", ko:"요구하다", ex:"La equidad educativa exige políticas que vayan más allá del aula."}
+]},
+{date:"2026-09-15", country:"bo", countryName:"볼리비아", cat:"정치·법제(국가비상사태 연장)", title:"El Gobierno de Bolivia anuncia un decreto para ampliar el estado de excepción", source:"Infobae/EFE, 2026-09-13", words:[
+  {es:"estado de excepción", pos:"명사구(남)", ko:"국가비상사태, 예외상태", ex:"El estado de excepción está vigente desde el 20 de junio."},
+  {es:"decretar / decretó", pos:"동사", ko:"(법령으로) 선포하다, 포고하다", ex:"Paz decretó el estado de excepción para levantar los bloqueos."},
+  {es:"ampliar / ampliación", pos:"동사 / 명사(여)", ko:"연장하다 / 연장, 확대", ex:"El Ejecutivo presentará un decreto para la ampliación del estado de excepción."},
+  {es:"vigente", pos:"형용사", ko:"시행 중인, 유효한", ex:"La medida sigue vigente por noventa días."},
+  {es:"dar luz verde", pos:"관용구", ko:"승인하다 (직역: 녹색불을 주다)", ex:"Hay consenso en el Parlamento para que se dé luz verde a esta medida."},
+  {es:"bloqueo (de carreteras)", pos:"명사(남)", ko:"(도로) 봉쇄", ex:"La COB impulsó bloqueos de carreteras en el occidente del país."},
+  {es:"desabastecimiento", pos:"명사(남)", ko:"공급난, 물자 부족", ex:"El conflicto ocasionó desabastecimiento de alimentos y combustibles."},
+  {es:"oficialista", pos:"형용사·명사", ko:"여당의, 친정부의", ex:"El diputado del oficialista Partido Demócrata Cristiano explicó el procedimiento."}
+]},
+{date:"2026-09-16", country:"pe", countryName:"페루", cat:"외교·무역(아시아태평양 통합)", title:"Perú buscará ampliar integración con Asia Pacífico en 2027 y con la Alianza del Pacífico", source:"Infobae/EFE, 2026-09-14", words:[
+  {es:"tener previsto / tiene previsto", pos:"동사구", ko:"~할 예정이다, ~을 계획하고 있다", ex:"Perú tiene previsto profundizar su integración económica con Asia Pacífico."},
+  {es:"profundizar / buscaremos profundizar", pos:"동사", ko:"심화하다, 더 깊게 하다", ex:"Para el 2027 buscaremos profundizar nuestra integración económica y tecnológica."},
+  {es:"canciller", pos:"명사(남·여)", ko:"외교장관", ex:"El canciller Carlos Espá expuso las metas ante el Congreso."},
+  {es:"socio estratégico", pos:"명사구(남)", ko:"전략적 동반자", ex:"Estados Unidos es un socio estratégico para el Perú."},
+  {es:"presidencia pro tempore", pos:"명사구(여)", ko:"순회 의장국직", ex:"Perú asumirá la presidencia pro tempore de la Alianza del Pacífico en 2027."},
+  {es:"proceso de adhesión", pos:"명사구(남)", ko:"가입 절차", ex:"Continuarán avanzando en el proceso de adhesión a la OCDE."},
+  {es:"gabinete binacional", pos:"명사구(남)", ko:"양국 합동 각료회의", ex:"Se realizarán gabinetes binacionales con Ecuador, Colombia y Bolivia."},
+  {es:"delincuencia organizada transnacional", pos:"명사구(여)", ko:"초국가적 조직범죄", ex:"Concentraremos nuestros esfuerzos en la lucha contra la delincuencia organizada transnacional."}
+]},
+{date:"2026-09-17", country:"mx", countryName:"멕시코", cat:"정치·역사(주권·독립기념)", title:"México no se entrega, no se arrodilla y nunca se vende: Sheinbaum", source:"La Jornada, 2026-09-16", words:[
+  {es:"soberanía", pos:"명사(여)", ko:"주권", ex:"Es una responsabilidad de todas las generaciones defender la patria y cuidar la soberanía."},
+  {es:"protectorado", pos:"명사(남)", ko:"보호령", ex:"México no será nunca colonia ni protectorado de nadie."},
+  {es:"doblegarse / no se doblega", pos:"동사(재귀)", ko:"굴복하다, 꺾이다", ex:"México no se doblega, no se arrodilla y nunca se vende."},
+  {es:"rebeldía", pos:"명사(여)", ko:"항거, 반항", ex:"México nació de la rebeldía de un pueblo que se negó a aceptar la injusticia."},
+  {es:"gesta", pos:"명사(여)", ko:"위업, 장한 업적", ex:"Por esta gesta nombramos a Hidalgo el padre de la patria."},
+  {es:"la bota extranjera", pos:"관용구(여)", ko:"외세의 군홧발(외국의 군사 지배)", ex:"Los conservadores aplaudieron la bota extranjera y trajeron a Maximiliano."},
+  {es:"pasar revista a las tropas", pos:"동사구", ko:"부대를 사열하다", ex:"Tras pasar revista a las tropas, la presidenta dio su discurso."},
+  {es:"restarle valor a algo", pos:"동사구", ko:"~의 가치를 깎아내리다", ex:"Hay quienes han querido restarle valor a su heroísmo y a su visión."}
+]},
+{date:"2026-09-18", country:"bo", countryName:"볼리비아", cat:"경제·금융(IMF 차관 비준)", title:"Comisión parlamentaria aprueba el acuerdo con el FMI por $us 1.900 millones tras pactar cláusulas de transparencia con el Ejecutivo", source:"Panamericana, 2026-09-17", words:[
+  {es:"el memorándum de entendimiento", pos:"명사구(남)", ko:"양해각서(MOU)", ex:"La comisión aprobó la ratificación del memorándum de entendimiento con el FMI."},
+  {es:"viabilizar / viabilizará", pos:"동사", ko:"실현 가능하게 하다, 길을 열다", ex:"El acuerdo viabilizará el acceso a 1.900 millones de dólares en DEG."},
+  {es:"el ajuste estructural", pos:"명사구(남)", ko:"구조조정", ex:"El debate giró en torno a los ajustes estructurales que exige el organismo."},
+  {es:"la condicionalidad", pos:"명사(여)", ko:"(차관에 붙는) 조건, 이행 조건", ex:"El ministro certificó la ausencia de anexos o condicionalidades ocultas."},
+  {es:"apalancar", pos:"동사", ko:"(자금을) 지렛대 삼아 추가로 끌어오다", ex:"Los recursos permitirán apalancar financiamiento adicional con el Banco Mundial y el BID."},
+  {es:"el déficit fiscal sostenido", pos:"명사구(남)", ko:"지속적인 재정적자", ex:"La vulnerabilidad se caracteriza por el déficit fiscal sostenido y el agotamiento del gas."},
+  {es:"la subvención a los hidrocarburos", pos:"명사구(여)", ko:"연료(탄화수소) 보조금", ex:"El ajuste más duro es la eliminación total de la subvención a los hidrocarburos."},
+  {es:"la fiscalización parlamentaria", pos:"명사구(여)", ko:"의회의 감독·통제", ex:"El Ejecutivo aceptó someterse a fiscalización parlamentaria."}
+]},
+{date:"2026-09-19", country:"bo", countryName:"볼리비아", cat:"경제·관광", title:"Cabotur pide asegurar la transitabilidad y reactiva junto al Gobierno el Plan Maestro de Turismo", source:"Ministerio de la Presidencia, 2026-09-18", words:[
+  {es:"transitabilidad", pos:"명사(여)", ko:"통행 가능성, 이동의 자유", ex:"El Gobierno garantizó la transitabilidad en las carreteras principales."},
+  {es:"bloqueo", pos:"명사(남)", ko:"(도로) 봉쇄, 시위성 차단", ex:"Los mineros levantaron el bloqueo tras llegar a un acuerdo."},
+  {es:"expedito/a", pos:"형용사", ko:"신속한, 지장 없는", ex:"El acceso a la frontera debe ser expedito para no afectar el comercio."},
+  {es:"reactivar / reactiva", pos:"동사", ko:"재가동하다, 다시 활성화하다", ex:"Las autoridades reactivaron el plan de turismo tras meses de parálisis."},
+  {es:"acordar / acordaron", pos:"동사", ko:"합의하다", ex:"Ambas partes acordaron reunirse nuevamente la próxima semana."},
+  {es:"mesa técnica", pos:"명사구(여)", ko:"실무 협의체, 기술위원회", ex:"Se instaló una mesa técnica entre el sector privado y el Estado."},
+  {es:"concertación público-privada", pos:"명사구(여)", ko:"민관 협력·조정", ex:"La concertación público-privada permitió avanzar en el proyecto vial."},
+  {es:"ruta crítica", pos:"명사구(여)", ko:"(사업 추진) 핵심 로드맵", ex:"El equipo definió una ruta crítica para cumplir los plazos."}
+]},
+{date:"2026-09-20", country:"mx", countryName:"멕시코", cat:"외교·정치", title:"Claudia Sheinbaum advierte contra el intervencionismo: \"México es un país libre y soberano, bastante nos costó\"", source:"Infobae México, 2026-09-20", words:[
+  {es:"la injerencia", pos:"명사(여)", ko:"간섭, 개입", ex:"Rechazó cualquier injerencia extranjera en los asuntos de la nación."},
+  {es:"la soberanía", pos:"명사(여)", ko:"주권", ex:"El reclamo original de la Independencia exigía una soberanía absoluta."},
+  {es:"el intervencionismo", pos:"명사(남)", ko:"개입주의, 간섭주의", ex:"La presidenta advirtió contra el intervencionismo extranjero."},
+  {es:"rendir cuentas", pos:"동사구", ko:"결과를 보고하다, 책임을 지다", ex:"La mandataria realiza una gira para rendir cuentas por cada uno de los 32 estados."},
+  {es:"emanar / emana", pos:"동사", ko:"유래하다, ~에서 나오다", ex:"La soberanía es aquella que emana del pueblo y no hay que olvidarlo nunca."},
+  {es:"sentenciar / sentenció", pos:"동사", ko:"단호히 선언하다", ex:"\"Esa es la independencia de México\", sentenció Sheinbaum."},
+  {es:"dirimir", pos:"동사", ko:"(분쟁 등을) 해결하다, 조정하다", ex:"Criticó a quienes buscan el respaldo internacional para dirimir asuntos internos."},
+  {es:"atentar contra / atente", pos:"동사구", ko:"~에 위해를 가하다, 침해하다", ex:"No permitirá ningún desarrollo que atente contra el medio ambiente."}
+]},
+{date:"2026-09-21", country:"mx", countryName:"멕시코", cat:"외교·무역(T-MEC 재협상)", title:"Revisión del T-MEC: Sheinbaum y Trump se acercan a acuerdo, pero abren frentes", source:"El Financiero, 2026-09-18", words:[
+  {es:"destrabar", pos:"동사(원형)", ko:"(교착 상태를) 풀다, 타개하다", ex:"Ambos países se acercan a un acuerdo para destrabar la revisión del T-MEC."},
+  {es:"poner algo sobre la mesa", pos:"동사구", ko:"(의제로) 제기하다, 테이블에 올리다", ex:"Trump está poniendo sobre la mesa el combate al narcotráfico y las reglas de origen."},
+  {es:"reglas de origen", pos:"명사구(여)", ko:"원산지 규정", ex:"Uno de los nuevos temas son las reglas de origen automotrices."},
+  {es:"aplazar / se volvió a aplazar", pos:"동사", ko:"연기하다, 미루다", ex:"La cuarta ronda de negociaciones se volvió a aplazar sin fecha definida."},
+  {es:"infiltración criminal", pos:"명사구(여)", ko:"범죄 조직의 침투", ex:"La infiltración criminal también impacta las decisiones empresariales."},
+  {es:"cadena de suministro", pos:"명사구(여)", ko:"공급망", ex:"La inseguridad afecta el costo de operación y la cadena de suministro."},
+  {es:"extraoficialmente", pos:"부사", ko:"비공식적으로", ex:"Extraoficialmente se habla de que la ronda ocurrirá el 28 y 29 de septiembre."},
+  {es:"figurar en la lista de prioridades", pos:"동사구", ko:"우선순위 목록에 들다", ex:"México no figura en la lista de prioridades de Washington estas semanas."}
+]},
+{date:"2026-09-22", country:"bo", countryName:"볼리비아", cat:"외교·경제(미국의 IMF 협정 지지)", title:"Marco Rubio se reunió con Rodrigo Paz en Nueva York y respaldó el acuerdo de Bolivia con el FMI para impulsar su programa de reformas", source:"Infobae, 2026-09-21", words:[
+  {es:"vincular (기사형: vinculó)", pos:"동사(원형)", ko:"연계시키다, 결부짓다", ex:"El secretario de Estado vinculó el encuentro con el acuerdo entre Bolivia y el FMI."},
+  {es:"promulgar (기사형: promulgara)", pos:"동사(원형)", ko:"(법·협정을) 공포하다", ex:"Paz promulgó el acuerdo con el FMI por 1.900 millones de dólares."},
+  {es:"flexibilizar", pos:"동사(원형)", ko:"(제도를) 완화하다, 유연화하다", ex:"Las medidas buscan flexibilizar el régimen cambiario boliviano."},
+  {es:"el régimen cambiario", pos:"명사구(남)", ko:"환율 제도", ex:"El FMI pidió flexibilizar el régimen cambiario del país."},
+  {es:"el Directorio Ejecutivo", pos:"명사구(남)", ko:"(국제기구의) 집행이사회", ex:"El convenio todavía requiere la aprobación final del Directorio Ejecutivo del FMI."},
+  {es:"la reanudación", pos:"명사(여)", ko:"재개", ex:"La posible reanudación de los bloqueos preocupa al Gobierno de Paz."},
+  {es:"protagonizar (기사형: protagonizaron)", pos:"동사(원형)", ko:"(사건을) 벌이다, 주도하다", ex:"Los manifestantes protagonizaron cortes de ruta en julio pasado."},
+  {es:"limitarse a decir", pos:"동사구", ko:"~라고만 말하다, ~에 그치다", ex:"El presidente se limitó a decir: \"Un cariño para todos\"."}
+]}
+];
+
+const main = document.getElementById('main');
+const statsEl = document.getElementById('stats');
+const countNote = document.getElementById('countNote');
+const emptyState = document.getElementById('emptyState');
+const qInput = document.getElementById('q');
+const countryChipsEl = document.getElementById('countryChips');
+
+let currentCountry = 'all';
+
+const totalWords = DATA.reduce((n,d)=>n+d.words.length,0);
+
+// 국가는 데이터에 등장하는 순서대로 색 슬롯(p0~p7)을 배정한다. 새 국가가 나와도 코드 수정 없이 자동으로 처리된다.
+const PILL_CLASSES = ['p0','p1','p2','p3','p4','p5','p6','p7'];
+const countryOrder = [];
+const countryNames = {};
+DATA.forEach(d=>{
+  if(!(d.country in countryNames)){
+    countryNames[d.country] = d.countryName || d.country;
+    countryOrder.push(d.country);
+  }
+});
+function pillClassFor(code){
+  const idx = countryOrder.indexOf(code);
+  return PILL_CLASSES[idx % PILL_CLASSES.length] || 'p0';
+}
+
+const latestDate = DATA.length ? DATA[DATA.length - 1].date : '-';
+
+statsEl.innerHTML = `
+  <div class="stat"><b>${DATA.length}</b><span>수록 일수</span></div>
+  <div class="stat"><b>${totalWords}</b><span>총 단어·표현</span></div>
+  <div class="stat"><b>${countryOrder.length}</b><span>다루 국가</span></div>
+  <div class="stat"><b>${latestDate.slice(5)}</b><span>최근 갱신</span></div>
+`;
+
+document.getElementById('footerNote').textContent =
+  `전체 ${DATA.length}일치, ${totalWords}개 항목, ${countryOrder.length}개국. 매일 "1일 1스페인어 기사" 학습 자료에서 자동으로 누적된다. 다른 기사에서 다시 등장한 단어는 각 기사 맥락별로 따로 싣는다.`;
+
+countryChipsEl.innerHTML = '<button class="chip" data-country="all" aria-pressed="true">전체</button>' +
+  countryOrder.map(code => `<button class="chip" data-country="${escAttr(code)}" aria-pressed="false">${esc(countryNames[code])}</button>`).join('');
+
+function renderDay(d){
+  const el = document.createElement('section');
+  el.className = 'day';
+  el.dataset.country = d.country;
+  const countryLabel = d.countryName || d.country;
+  const rows = d.words.map(w => `
+    <tr data-es="${escAttr(w.es)}" data-ko="${escAttr(w.ko)}" data-ex="${escAttr(w.ex)}">
+      <td class="es">${esc(w.es)}</td>
+      <td class="pos">${esc(w.pos)}</td>
+      <td class="ko">${esc(w.ko)}</td>
+      <td class="ex"><i>${esc(w.ex)}</i></td>
+    </tr>`).join('');
+  el.innerHTML = `
+    <div class="day-head">
+      <span class="day-date">${d.date}</span>
+      <span class="pill ${pillClassFor(d.country)}">${esc(countryLabel)}</span>
+      <span class="pill cat">${esc(d.cat)}</span>
+    </div>
+    <p class="day-title">${esc(d.title)}</p>
+    <p class="day-source">${esc(d.source)}</p>
+    <div class="table-scroll">
+      <table class="vocab-table">
+        <thead><tr><th>스페인어</th><th>품사·성</th><th>한국어 의미</th><th>기사 맥락의 예문</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+  return el;
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s){ return esc(s).replace(/"/g,'&quot;').toLowerCase(); }
+
+DATA.forEach(d => main.appendChild(renderDay(d)));
+
+function applyFilters(){
+  const q = qInput.value.trim().toLowerCase();
+  let visibleTotal = 0;
+  document.querySelectorAll('.day').forEach(dayEl=>{
+    const dayCountry = dayEl.dataset.country;
+    const countryOk = currentCountry === 'all' || dayCountry === currentCountry;
+    let visibleRows = 0;
+    dayEl.querySelectorAll('tbody tr').forEach(tr=>{
+      const matches = !q || tr.dataset.es.includes(q) || tr.dataset.ko.includes(q) || tr.dataset.ex.includes(q);
+      const show = countryOk && matches;
+      tr.classList.toggle('hidden', !show);
+      if(show) visibleRows++;
+    });
+    dayEl.classList.toggle('all-hidden', visibleRows === 0);
+    visibleTotal += visibleRows;
+  });
+  countNote.textContent = `${visibleTotal} / ${totalWords}개 표시`;
+  emptyState.classList.toggle('show', visibleTotal === 0);
+}
+
+qInput.addEventListener('input', applyFilters);
+countryChipsEl.addEventListener('click', (e)=>{
+  const chip = e.target.closest('.chip');
+  if(!chip) return;
+  countryChipsEl.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+  chip.setAttribute('aria-pressed','true');
+  currentCountry = chip.dataset.country;
+  applyFilters();
+});
+
+applyFilters();
+</script>
+
+</body>
+</html>
