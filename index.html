@@ -357,6 +357,23 @@
     .stat b{ font-size:18px; }
     .count-note{ margin-left:0; width:100%; }
   }
+
+  /* ---- Calendar ---- */
+  .cal{ margin-top:18px; max-width:340px; border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:12px 12px 10px; }
+  .cal-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+  .cal-title{ font-size:14px; font-weight:600; color:var(--ink); }
+  .cal-nav{ font:inherit; font-size:14px; width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:var(--surface-2); color:var(--ink); cursor:pointer; }
+  .cal-nav:disabled{ opacity:.35; cursor:default; }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+  .cal-dow{ font-size:11px; text-align:center; color:var(--ink-faint); padding:2px 0; }
+  .cal-day{ font:inherit; font-size:13px; aspect-ratio:1; border-radius:8px; border:1px solid transparent; background:transparent; color:var(--ink-faint); opacity:.45; position:relative; padding:0; cursor:default; }
+  .cal-day.has{ opacity:1; color:var(--ink); background:var(--surface-2); border-color:var(--line); cursor:pointer; }
+  .cal-day.has::after{ content:""; position:absolute; left:50%; bottom:4px; width:4px; height:4px; margin-left:-2px; border-radius:50%; background:var(--accent); }
+  .cal-day.sel{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+  .cal-day.sel::after{ background:var(--accent-ink); }
+  .cal-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; font-size:12px; color:var(--ink-dim); min-height:26px; }
+  .cal-clear{ font:inherit; font-size:12px; padding:4px 10px; border-radius:8px; border:1px solid var(--line); background:var(--surface-2); color:var(--ink); cursor:pointer; }
+  .cal-clear[hidden]{ display:none; }
 </style>
 </head>
 <body>
@@ -370,6 +387,16 @@
     <div class="stats" id="stats"></div>
     <p class="coverage-note">기록은 2026년 8월 27일 자 기사부터 보관되어 있다. 그 이전(7월 29일~8월 26일) 기사의 단어는 이 세션의 저장 기록에 없어 포함하지 못했다. 9월 14일 항목의 마지막 6개(constante, más allá de, brecha, decisivo, equidad, exigir)는 기사 원문이 아니라 그날 학습 자료의 요약·예시 문장에서 뽑은 표현이다.</p>
   </header>
+
+  <section class="cal" id="cal" aria-label="날짜별 보기">
+    <div class="cal-head">
+      <button class="cal-nav" id="calPrev" type="button" aria-label="이전 달">&lsaquo;</button>
+      <span class="cal-title" id="calTitle"></span>
+      <button class="cal-nav" id="calNext" type="button" aria-label="다음 달">&rsaquo;</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-foot"><span id="calInfo">점이 있는 날짜를 누르면 그날 단어만 보인다.</span><button class="cal-clear" id="calClear" type="button" hidden>전체 보기</button></div>
+  </section>
 
   <div class="controls">
     <div class="search">
@@ -774,6 +801,7 @@ const qInput = document.getElementById('q');
 const countryChipsEl = document.getElementById('countryChips');
 
 let currentCountry = 'all';
+let selectedDate = null;
 
 const totalWords = DATA.reduce((n,d)=>n+d.words.length,0);
 
@@ -811,6 +839,7 @@ function renderDay(d){
   const el = document.createElement('section');
   el.className = 'day';
   el.dataset.country = d.country;
+  el.dataset.date = d.date;
   const countryLabel = d.countryName || d.country;
   const rows = d.words.map(w => `
     <tr data-es="${escAttr(w.es)}" data-ko="${escAttr(w.ko)}" data-ex="${escAttr(w.ex)}">
@@ -847,7 +876,7 @@ function applyFilters(){
   let visibleTotal = 0;
   document.querySelectorAll('.day').forEach(dayEl=>{
     const dayCountry = dayEl.dataset.country;
-    const countryOk = currentCountry === 'all' || dayCountry === currentCountry;
+    const countryOk = (currentCountry === 'all' || dayCountry === currentCountry) && (!selectedDate || dayEl.dataset.date === selectedDate);
     let visibleRows = 0;
     dayEl.querySelectorAll('tbody tr').forEach(tr=>{
       const matches = !q || tr.dataset.es.includes(q) || tr.dataset.ko.includes(q) || tr.dataset.ex.includes(q);
@@ -871,6 +900,52 @@ countryChipsEl.addEventListener('click', (e)=>{
   currentCountry = chip.dataset.country;
   applyFilters();
 });
+
+// ---- 달력 ----
+const dateSet = new Set(DATA.map(d=>d.date));
+const sortedDates = [...dateSet].sort();
+const minMonth = sortedDates[0].slice(0,7);
+const maxMonth = sortedDates[sortedDates.length-1].slice(0,7);
+let calMonth = maxMonth;
+const calGrid = document.getElementById('calGrid');
+const calTitle = document.getElementById('calTitle');
+const calPrev = document.getElementById('calPrev');
+const calNext = document.getElementById('calNext');
+const calClear = document.getElementById('calClear');
+const calInfo = document.getElementById('calInfo');
+function shiftMonth(ym, delta){
+  const [y,m] = ym.split('-').map(Number);
+  const t = new Date(Date.UTC(y, m-1+delta, 1));
+  return t.getUTCFullYear() + '-' + String(t.getUTCMonth()+1).padStart(2,'0');
+}
+function renderCal(){
+  const [y,m] = calMonth.split('-').map(Number);
+  calTitle.textContent = y + '년 ' + m + '월';
+  const first = new Date(Date.UTC(y, m-1, 1)).getUTCDay();
+  const days = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  let h = ['일','월','화','수','목','금','토'].map(n=>'<div class="cal-dow">'+n+'</div>').join('');
+  for(let i=0;i<first;i++) h += '<div></div>';
+  for(let d=1; d<=days; d++){
+    const ds = calMonth + '-' + String(d).padStart(2,'0');
+    const has = dateSet.has(ds);
+    h += '<button type="button" class="cal-day' + (has?' has':'') + (ds===selectedDate?' sel':'') + '" data-date="' + ds + '"' + (has?'':' disabled') + '>' + d + '</button>';
+  }
+  calGrid.innerHTML = h;
+  calPrev.disabled = calMonth <= minMonth;
+  calNext.disabled = calMonth >= maxMonth;
+  calClear.hidden = !selectedDate;
+  calInfo.textContent = selectedDate ? selectedDate + ' 단어만 표시 중' : '점이 있는 날짜를 누르면 그날 단어만 보인다.';
+}
+calGrid.addEventListener('click', e=>{
+  const b = e.target.closest('.cal-day.has');
+  if(!b) return;
+  selectedDate = (selectedDate === b.dataset.date) ? null : b.dataset.date;
+  renderCal(); applyFilters();
+});
+calPrev.addEventListener('click', ()=>{ calMonth = shiftMonth(calMonth,-1); renderCal(); });
+calNext.addEventListener('click', ()=>{ calMonth = shiftMonth(calMonth,1); renderCal(); });
+calClear.addEventListener('click', ()=>{ selectedDate = null; renderCal(); applyFilters(); });
+renderCal();
 
 applyFilters();
 </script>
