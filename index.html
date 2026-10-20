@@ -331,6 +331,7 @@
   .ko{ color:var(--ink); font-weight:500; }
   .ex{ color:var(--ink-dim); font-size:13px; }
   .ex i{ font-style:italic; }
+  .ex-ko{ display:block; margin-top:3px; font-size:12px; color:var(--ink-dim); opacity:.85; }
 
   .day.all-hidden{ display:none; }
 
@@ -995,11 +996,11 @@ function renderDay(d){
   el.dataset.date = d.date;
   const countryLabel = d.countryName || d.country;
   const rows = d.words.map(w => `
-    <tr data-es="${escAttr(w.es)}" data-ko="${escAttr(w.ko)}" data-ex="${escAttr(w.ex)}">
+    <tr data-es="${escAttr(w.es)}" data-ko="${escAttr(w.ko)}" data-ex="${escAttr(w.ex + ' ' + (w.exKo || ''))}">
       <td class="es">${esc(w.es)}</td>
       <td class="pos">${esc(w.pos)}</td>
       <td class="ko">${esc(w.ko)}</td>
-      <td class="ex"><i>${esc(w.ex)}</i></td>
+      <td class="ex"><i>${esc(w.ex)}</i>${w.exKo ? `<span class="ex-ko">${esc(w.exKo)}</span>` : ''}</td>
     </tr>`).join('');
   el.innerHTML = `
     <div class="day-head">
